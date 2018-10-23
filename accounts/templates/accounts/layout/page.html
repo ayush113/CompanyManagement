@@ -23,7 +23,14 @@
     <style>
         .basics{
             padding-left: 15px;
+            margin-left: 15px;
         }
+
+        des{
+
+            color: #555555;
+        }
+
     </style>
 
 </head>
@@ -39,6 +46,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
         <ul class="navbar-nav mr-auto">
             {% if request.user.is_authenticated %}
                 <div class="basics">
@@ -62,6 +70,12 @@
                 </li>
             {% endif %}
         </ul>
+
+     <p style="float: right;padding-top: 10px;color: white">
+                    {{ user.first_name }} {{ user.last_name }}
+         <img src="media/logo.png"  width="20" height="20">
+
+     </p>
     </div>
 
 </nav>

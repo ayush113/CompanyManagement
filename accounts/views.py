@@ -108,7 +108,7 @@ class SignUpView(GuestOnlyView, FormView):
 
         # Change the username to the "user_ID" form
         if settings.DISABLE_USERNAME:
-            user.username = f'user_{user.id}'
+            user.username = 'user_{user.id}'
             user.save()
 
         if settings.ENABLE_USER_ACTIVATION:
