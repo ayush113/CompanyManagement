@@ -54,10 +54,21 @@
   opacity: 1;
   right: 0;
 }
+    .main{
+        position: relative;
+    }
+    .cont2{
+        position: absolute;
+        right: 0;
+        padding-top: 100px;
+        padding-left: 100px;
+        padding-bottom: 100px;
+    }
 </style>
 
 <body class="container">
-    <div>
+<div class="main">
+    <div class="cont1">
         <h1 style="text-align: right">
             Customer Relationship Management.
         </h1>
@@ -68,11 +79,13 @@
 
 
     </div>
-    <div class="btn" >
+    <div class="btn cont2" >
      <a href="{% url 'accounts:sign_up' %}"><button class="button"><span>Sign up </span></button></a>
     <a href="{% url 'accounts:log_in' %}"><button class="button"><span>Login </span></button></a>
 
         </div>
+</div>
+
 
 
 </body>
