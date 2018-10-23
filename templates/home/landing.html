@@ -1,27 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HOME</title>
+<htmL>
+
+    <head>
+<title>HOME</title>
 </head>
 
 <style>
-    .container{
-        background-color: powderblue ;
-        padding-right: 70px;
-        padding-left: 70px;
-        padding-top: 20px;
+.container{
+    background-color: powderblue;
+    padding-right: 70px;
+    padding-left: 70px;
+    padding-top: 20px;
+}
+
+    .button {
+  border-radius: 4px;
+  background-color: teal;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+    .btn{
+        position: fixed;
+        padding-bottom: 20px;
     }
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
 </style>
+
 <body class="container">
     <div>
         <h1 style="text-align: right">
-        Customer Relationship Management.
-            </h1>
+            Customer Relationship Management.
+        </h1>
         <h3 style="text-align: right">
             Helping your business just like your clients.
         </h3>
+
+
+
     </div>
+    <div class="btn" >
+     <a href="{% url 'accounts:sign_up' %}"><button class="button"><span>Sign up </span></button></a>
+    <a href="{% url 'accounts:log_in' %}"><button class="button"><span>Login </span></button></a>
+
+        </div>
+
 
 </body>
-</html>
+</htmL>

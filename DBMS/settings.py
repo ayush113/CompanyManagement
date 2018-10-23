@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'accounts',
     'bootstrap4',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -129,7 +130,7 @@ ENABLE_USER_ACTIVATION = False
 DISABLE_USERNAME = False
 LOGIN_VIA_EMAIL = True
 LOGIN_VIA_EMAIL_OR_USERNAME = False
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'accounts:log_in'
 USE_REMEMBER_ME = True
 
