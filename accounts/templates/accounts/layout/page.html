@@ -16,10 +16,15 @@
 
     <link rel="icon" href="{% static 'favicon.ico' %}">
 
-    <title>Simple Django Login and Registration</title>
+    <title>CRM</title>
 
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <style>
+        .basics{
+            padding-left: 15px;
+        }
+    </style>
 
 </head>
 
@@ -36,18 +41,18 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accounts:change_password' %}">{% trans 'Change password' %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accounts:change_profile' %}">{% trans 'Change profile' %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accounts:change_email' %}">{% trans 'Change email' %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accounts:log_out' %}">{% trans 'Log out' %}</a>
-                </li>
+                <div class="basics">
+                <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: gray">{% trans 'Profile' %}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'accounts:change_password' %}">{% trans 'Change password' %}</a></li>
+          <li><a href="{% url 'accounts:change_profile' %}">{% trans 'Change profile' %}</a></li>
+          <li><a href="{% url 'accounts:change_email' %}">{% trans 'Change email' %}</a></li>
+            <li><a href="{% url 'accounts:log_out' %}">{% trans 'Log out' %}</a></li>
+        </ul>
+      </li>
+                </div>
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:log_in' %}">{% trans 'Log In' %}</a>
