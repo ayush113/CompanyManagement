@@ -11,7 +11,7 @@ def send_mail(to, template, context):
 
     msg = EmailMultiAlternatives(context['subject'], text_content, settings.DEFAULT_FROM_EMAIL, [to])
     msg.attach_alternative(html_content, 'text/html')
-    msg.send()
+    #msg.send()
 
 
 def send_activation_email(request, email, code):
