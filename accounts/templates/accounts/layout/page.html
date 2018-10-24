@@ -32,7 +32,56 @@
             color: #555555;
         }
 
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
     </style>
+
+    <script>
+        function openNav() {
+    document.getElementById("mySidenav").style.width = "200px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+    </script>
 
 </head>
 
@@ -40,19 +89,28 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand" href="/">{% trans 'Home' %}</a>
+    <div id="mySidenav" class="sidenav navbar-brand">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+<span style="cursor:pointer;color: white;font-size: 20px" onclick="openNav()">&#9776;</span>
 
-        <ul class="navbar-nav mr-auto">
+{#    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+
+    <div class="collapse navbar-collapse " id="navbarsExampleDefault">
+
+        <ul class="navbar-nav mr-auto ">
             {% if request.user.is_authenticated %}
                 <div class="basics">
                 <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: gray">{% trans 'Profile' %}
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white">{% trans 'Profile' %}
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="{% url 'accounts:change_password' %}">{% trans 'Change password' %}</a></li>
@@ -72,9 +130,9 @@
             {% endif %}
         </ul>
 
-     <p style="float: right;padding-top: 10px;color: white">
+     <p style="padding-top: 10px;color: white">
                     {{ user.first_name }} {{ user.last_name }}
-         <img src="{% static 'img/logo.png' %}"  width="50" height="50">
+         <img src="{% static 'img/logo.png' %}"  width="20" height="20">
 
      </p>
     </div>
