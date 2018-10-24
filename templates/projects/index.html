@@ -15,6 +15,7 @@
     width: 40%;
     border-radius: 5px;
     margin-bottom:15px;
+    background-color: lightcyan;
 }
 
 .card:hover {
@@ -30,14 +31,16 @@
 <body>
 {% csrf_token %}
 {% for project in projects %}
+    <a href="{% url 'dashboard' %}?project_id={{ project.project_id }}" style="color: black">
     <div class ="card">
-        <div class="container">
-            <h1>{{ project.project_name }}</h1><br/>
-            <p>{{ project.start_date }} ---- {{ project.deadline }}</p>
+        <div class="container" style="text-align: center">
+            <h3>{{ project.project_name }}</h3><br/>
+            <p>Project Leader: {{ project.first_name }} {{ project.last_name }}</p>
+            <p>{{ project.start_date }}  to {{ project.deadline }}</p>
             <br/>
         </div>
     </div>
-
+    </a>
 
 {% endfor %}
 
