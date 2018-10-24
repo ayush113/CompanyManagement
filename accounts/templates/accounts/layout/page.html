@@ -1,6 +1,7 @@
 {% load static %}
 {% load bootstrap4 %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% get_current_language as language_code %}
 
@@ -73,7 +74,7 @@
 
      <p style="float: right;padding-top: 10px;color: white">
                     {{ user.first_name }} {{ user.last_name }}
-         <img src="media/logo.png"  width="20" height="20">
+         <img src="{% static 'img/logo.png' %}"  width="50" height="50">
 
      </p>
     </div>

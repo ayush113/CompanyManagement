@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 from . import models
 
@@ -23,7 +23,7 @@ def signUp(request):
         someuser = authuser.objects.create_user(uname,email,password)
         someuser.save()
         #results = '1'
-        return redirect(reverse('login'))
+        return redirect(('login'))
         #return JsonResponse(results, safe=False)
     else:
         return render(request, 'users/signup.html')
