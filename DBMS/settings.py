@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'accounts',
     'bootstrap4',
     'home',
+    'leads',
+    'custsupport',
+    'projects',
+    'social',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'DBMS',
         'USER': 'root',
-        'PASSWORD': 'chibbu'
+        'PASSWORD': '@yu$h113'
     }
 }
 
