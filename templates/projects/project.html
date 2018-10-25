@@ -1,0 +1,53 @@
+{% extends 'accounts/layout/page.html' %}
+
+{% load i18n %}
+
+{% block content %}
+    <head>
+    <style>
+        .space{
+            margin-left: 20px;
+        }
+        .sub{
+            margin-top: 10px;
+        }
+    </style>
+        <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#change").click(function () {
+                let params = (new URL(document.location)).searchParams;
+                let id = params.get("project_id");
+                var name = JSON.stringify($("#name").val());
+                var start = JSON.stringify($("#start").val());
+                var end = JSON.stringify($("#end").val());
+                $.post('/projects/individual',{name:name,start:start,end:end,id:id},function (result) {
+                    alert("Changes Made Succesfully");
+                    window.location.href = "{% url 'dashboard' %}"
+
+                });
+            });
+        });
+    </script>
+    </head>
+    {% csrf_token %}
+    <div class="jumbotron">
+    <div class="row">
+        Project Name: <input id="name" class="space" type="text" width="100%" value="{{ data.project_name }}">
+    </div>
+    <div class="row">
+        Start Date: <input id="start" class="space" type="text" width="100%" value="{{ data.start_date }}">
+    </div>
+    <div class="row">
+        Deadline: <input id="end" class="space" type="text" width="100%" value="{{ data.deadline }}">
+    </div>
+    <div class="row sub">
+        <button type="submit" id="change" class="btn btn-primary">Change</button>
+    </div>
+    </div>
+
+
+{% endblock %}

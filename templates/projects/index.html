@@ -21,7 +21,9 @@
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-
+body{
+    background-color: lightgray;
+}
 
 .container {
     padding: 2px 16px;
@@ -30,8 +32,10 @@
 </head>
 <body>
 {% csrf_token %}
+<div class="row">
 {% for project in projects %}
-    <a href="{% url 'dashboard' %}?project_id={{ project.project_id }}" style="color: black">
+    <div class="col-sm-12">
+    <a href="{% url 'project_indiv' %}?project_id={{ project.project_id }}" style="color: black">
     <div class ="card">
         <div class="container" style="text-align: center">
             <h3>{{ project.project_name }}</h3><br/>
@@ -42,7 +46,12 @@
     </div>
     </a>
 
+    </div>
+
 {% endfor %}
+
+</div>
+
 
 </body>
 </html>
