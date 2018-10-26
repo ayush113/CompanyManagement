@@ -23,6 +23,14 @@
   overflow-x: hidden;
   padding-top: 20px;
 }
+        .centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+   background-color: lightcyan;
+}
 
 .left {
     border: black;
@@ -43,7 +51,11 @@
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
     <script>
+
         $(document).ready(function () {
+
+            $("#box").hide()
+
             $("#change").click(function () {
                 let params = (new URL(document.location)).searchParams;
                 let id = params.get("project_id");
@@ -57,12 +69,44 @@
                 });
             });
         });
+
+        function remove(identity) {
+            var act = "remove"
+            act = JSON.stringify(act)
+            identity = JSON.stringify(identity)
+            let params = (new URL(document.location)).searchParams;
+            let projid = params.get("project_id");
+            $.post('/projects/individual',{id:identity,act:act,projid:projid},function (result) {
+
+                window.location.href = "{% url 'projects' %}"
+
+            })
+
+
+        };
+
+        function changeRole(identity) {
+                {#$('#main').hide()#}
+                $("#box").show()
+            var act = "change"
+                act = JSON.stringify(act)
+            identity = JSON.stringify(identity)
+            let params = (new URL(document.location)).searchParams;
+            let projid = params.get("project_id");
+            $("#change").click(function (identity,act,projid) {
+                var roles = $("#roles").val()
+                $.post('/projects/individual',{id:identity,act:act,projid:projid,role:roles},function (result) {
+                window.location.href = "{% url 'projects' %}"
+            })
+            })
+
+            };
     </script>
     </head>
     {% csrf_token %}
 
     <body>
-    <div class="content row">
+    <div class="content row" id="main">
 <div class="col-lg-6 left">
 {#    <div class="row">#}
 {#        Project Name: <label id="name" class="space" type="text" width="100%" value="{{ data.project_name }}"> {{ data.project_name }}#}
@@ -95,11 +139,20 @@
             <th class="border">
                 Role
             </th>
+            <th class="border-danger">
+                Actions Possible
+            </th>
         </tr>
+            {% csrf_token %}
             {% for res in roles %}
                 <tr class="border">
                 <td class="border">{{ res.first_name }} {{ res.last_name }}</td>
                 <td class="border"> {{ res.role }}</td>
+                    {% if leader %}
+                    <td class="border-danger"><button onclick="remove({{ res.user_id }});" class="btn-outline-danger">Remove From Project</button> &nbsp &nbsp <button onclick="changeRole({{ res.user_id }});" class="btn-outline-primary">Change Role</button></td>
+                     {% else %}
+                    <td class="border-danger">No Action Possible</td>
+                    {% endif %}
                 </tr>
 
             {% endfor %}
@@ -107,7 +160,11 @@
 
     </div>
 
-
+    </div>
+    <div  id="box" class="jumbotron centered">
+        Enter New Role: <br/><br/>
+        <input type="text" id="roles"><br/><br/>
+        <button id="change">Change Role</button>
     </div>
     </body>
 

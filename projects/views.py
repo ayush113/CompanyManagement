@@ -6,6 +6,7 @@ from projects.models import Project
 from django.db import connection
 from .utils import namedtuplefetchall
 from django.http import JsonResponse
+from django.contrib import messages
 import json
 
 @login_required
@@ -20,29 +21,43 @@ def projects(request):
 def editpage(request):
     variable = 0
     if request.method == "POST":
-        print("HERE")
         data = request.POST
-        print(data)
-        stuff = data.get('name')
-        id = data.get('id')
-        id = json.loads(id)
+        id = json.loads(data.get('id'))
         id = int(id)
-        stuff = json.loads(stuff)
-        with connection.cursor() as curr:
-            print(request.GET.get('project_id'))
-            curr.execute("UPDATE project SET project_name=%s WHERE project_id=%s",[stuff,id])
-        return JsonResponse(variable,safe=False)
+        action = json.loads(data.get('act'))
+        print(action)
+        projid = int(json.loads(data.get('projid')))
+
+        if(action == "remove"):
+            if id == request.user.id:
+                messages.warning(request, "Can Not Remove Yourself")
+                return JsonResponse(1, safe=False)
+            with connection.cursor() as curr:
+                curr.execute("DELETE FROM works_on WHERE user_id=%s AND project_id=%s",[id,projid])
+        else:
+            #role = data.get('role')
+            print(data)
+
+
+        return JsonResponse(1,safe=False)
 
     else :
+        with connection.cursor() as curr:
+            curr.execute("select project.leader from project,works_on where works_on.project_id=project.project_id and project.leader=works_on.user_id and works_on.user_id=%s and project.project_id=%s",[request.user.id,request.GET.get('project_id')])
+            result = namedtuplefetchall(curr)
+        if len(result) == 0:
+            leader = 0
+        else:
+            leader = 1
         with connection.cursor() as curr:
             curr.execute("select * from project where project_id=%s", [request.GET.get('project_id')])
             res = namedtuplefetchall(curr)
 
         with connection.cursor() as curr:
-            curr.execute("select first_name,last_name,role from works_on,auth_user where works_on.user_id = auth_user.id and works_on.project_id=%s",[request.GET.get('project_id')])
+            curr.execute("select first_name,last_name,role,works_on.user_id from works_on,auth_user where works_on.user_id = auth_user.id and works_on.project_id=%s",[request.GET.get('project_id')])
             roles = namedtuplefetchall(curr)
         try:
-            return render(request, 'projects/project.html', {'data': res[0],'roles':roles})
+            return render(request, 'projects/project.html', {'data': res[0],'roles':roles,'leader':leader})
         except:
             return render(request, 'projects/project.html')
 
