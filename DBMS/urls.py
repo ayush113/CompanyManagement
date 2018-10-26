@@ -26,5 +26,6 @@ urlpatterns = [
     path('leads/',include('leads.urls')),
     path('social/',include('social.urls')),
     path('customer/',include('custsupport.urls')),
+    path('notes/', include('notes.urls')),
 ]
 

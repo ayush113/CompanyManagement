@@ -11,6 +11,32 @@
         .sub{
             margin-top: 10px;
         }
+        td{
+            padding-right: 10px;
+        }
+        .split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+
+}
+
+.right {
+  right: 0;
+
+}
+        .content{
+            margin-top: 30px;
+            background: rgba(222,222,222,1);;
+        }
     </style>
         <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -34,20 +60,33 @@
     </script>
     </head>
     {% csrf_token %}
-    <div class="jumbotron">
-    <div class="row">
-        Project Name: <label id="name" class="space" type="text" width="100%" value="{{ data.project_name }}"> {{ data.project_name }}
+
+    <body>
+    <div class="content ">
+<div >
+{#    <div class="row">#}
+{#        Project Name: <label id="name" class="space" type="text" width="100%" value="{{ data.project_name }}"> {{ data.project_name }}#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        Start Date: <label id="start" class="space" type="text" width="100%" value="{{ data.start_date }}"> {{ data.start_date }}#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        Deadline: <label id="end" class="space" type="text" width="100%" value="{{ data.deadline }}"> {{ data.deadline }}#}
+{#    </div>#}
+{#    <div class="row sub">#}
+{#        <button type="submit" id="change" class="btn btn-primary">Change</button>#}
+{#    </div>#}
+    <h1>{{ data.project_name }}</h1>
+    <p>
+        {{ data.description }}
+    </p>
     </div>
-    <div class="row">
-        Start Date: <label id="start" class="space" type="text" width="100%" value="{{ data.start_date }}"> {{ data.start_date }}
-    </div>
-    <div class="row">
-        Deadline: <label id="end" class="space" type="text" width="100%" value="{{ data.deadline }}"> {{ data.deadline }}
-    </div>
-    <div class="row sub">
-        <button type="submit" id="change" class="btn btn-primary">Change</button>
-    </div>
+    <div>
+
     </div>
 
+
+    </div>
+    </body>
 
 {% endblock %}

@@ -1,187 +1,53 @@
-{#{% extends 'accounts/layout/page.html' %}#}
-{##}
-{#{% load i18n %}#}
-{##}
-{#{% block content %}#}
-{#    <style>#}
-{##}
-{##mydiv {#}
-{#    position: absolute;#}
-{#    z-index: 9;#}
-{#    background-color: #f1f1f1;#}
-{#    text-align: center;#}
-{#    border: 1px solid #d3d3d3;#}
+{% extends 'accounts/layout/page.html' %}
 
-{##}
-{##mydivheader {#}
-{#    padding: 10px;#}
-{#    cursor: move;#}
-{#    z-index: 10;#}
-{#    background-color: #2196F3;#}
-{#    color: #fff;#}
 
-{#    </style>#}
-{#    <script>#}
-{#//Make the DIV element draggagle:#}
-{#dragElement($(""));#}
-{##}
-{#function dragElement(elmnt) {#}
-{#  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;#}
-{#  if (document.getElementById(elmnt + "header")) {#}
-{#    /* if present, the header is where you move the DIV from:*/#}
-{#    document.getElementById(elmnt + "header").onmousedown = dragMouseDown;#}
-{#  } else {#}
-{#    /* otherwise, move the DIV from anywhere inside the DIV:*/#}
-{#    elmnt.onmousedown = dragMouseDown;#}
-{#  }#}
-{##}
-{#  function dragMouseDown(e) {#}
-{#    e = e || window.event;#}
-{#    e.preventDefault();#}
-{#    // get the mouse cursor position at startup:#}
-{#    pos3 = e.clientX;#}
-{#    pos4 = e.clientY;#}
-{#    document.onmouseup = closeDragElement;#}
-{#    // call a function whenever the cursor moves:#}
-{#    document.onmousemove = elementDrag;#}
-{#  }#}
-{##}
-{#  function elementDrag(e) {#}
-{#    e = e || window.event;#}
-{#    e.preventDefault();#}
-{#    // calculate the new cursor position:#}
-{#    pos1 = pos3 - e.clientX;#}
-{#    pos2 = pos4 - e.clientY;#}
-{#    pos3 = e.clientX;#}
-{#    pos4 = e.clientY;#}
-{#    // set the element's new position:#}
-{#    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";#}
-{#    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";#}
-{#  }#}
-{##}
-{#  function closeDragElement() {#}
-{#    /* stop moving when mouse button is released:*/#}
-{#    document.onmouseup = null;#}
-{#    document.onmousemove = null;#}
-{#  }#}
-{#}#}
-{#</script>#}
-{#    <h4>Reminders for {{ request.user.first_name }} {{ request.user.last_name }}</h4>#}
-{#    <table class="border border-dark">#}
-{#    {% for reminder in result %}#}
-{#        <tr>#}
-{#        <td>#}
-{#            {{reminder.description}}#}
-{#        </td>#}
-{#        <td>#}
-{#            {{ reminder.priority }}#}
-{#        </td>#}
-{#        </tr>#}
-{#    {% endfor %}#}
-{#  </table> #}
-{#    {% for reminder in result %}#}
-{#    <div id="mydiv">#}
-{#        <div id="mydivheader">Click here to move</div>#}
-{#        <p>{{ reminder.description }}</p>#}
-{#        <p>{{ reminder.priority }}</p>#}
-{#    </div>#}
-{##}
-{#    {% endfor %}#}
-{##}
-{##}
-{#    <div id="mydiv">#}
-{#  <div id="mydivheader">Click here to move</div>#}
-{#  <p>Move</p>#}
-{#  <p>this</p>#}
-{#  <p>DIV</p>#}
-{#    </div>#}
-{##}
-{##}
-{##}
-{#{% endblock %}#}
-{##}
+{% block content %}
 
-<!DOCTYPE html>
-<html>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-<style>
-#mydiv {
-    position: absolute;
-    z-index: 9;
-    background-color: #f1f1f1;
-    text-align: center;
-    border: 1px solid #d3d3d3;
+     <html>
+        <head>
+            <link href="http://codepen.io/edbond88/pen/CcgvA.css" media="screen" rel="stylesheet" type="text/css" />
+            <style>
+                .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
 }
-
-#mydivheader {
-    padding: 10px;
-    cursor: move;
-    z-index: 10;
-    background-color: #2196F3;
-    color: #fff;
+                .body{
+                    background-color: rgba(222,222,222,1);
+                }
+                .right {
+    right: 0;
+    background-color: red;
 }
-</style>
-<body>
-
-<h1>Draggable DIV Element</h1>
-
-<p>Click and hold the mouse button down while moving the DIV element</p>
-
-<div id="mydiv">
-  <div id="mydivheader">Click here to move</div>
-  <p>Move</p>
-  <p>this</p>
-  <p>DIV</p>
-</div>
-
-<script>
-//Make the DIV element draggagle:
-dragElement($("#mydiv").getById);
-
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    /* if present, the header is where you move the DIV from:*/
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    /* otherwise, move the DIV from anywhere inside the DIV:*/
-    elmnt.onmousedown = dragMouseDown;
-  }
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-
-  function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
+.left {
+    left: 0;
+    background-color: #111;
 }
-</script>
+            </style>
+        </head>
 
-</body>
-</html>
+        <body>
+        <div class="split">
+          <h1>Reminders for you!</h1>
+
+          {% for i in result %}
+            <aside class="note-wrap note-white">
+              <li>{{ i.description }}</li>
+            </aside>
+          {% endfor %}
+
+        <form method='POST' action=''>{% csrf_token %}
+            {{ form.as_p }}
+            <input type='submit' value='Add note'>
+        </form>
+
+        </div>
+        </body>
+    </html>
+
+
+{% endblock %}
