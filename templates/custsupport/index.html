@@ -10,7 +10,44 @@
     <title>Customer Support</title>
 </head>
 <body>
+    <h3>Customer Information</h3><br/>
+    <table class="border">
+        <th class="border">
+            Customer Name
+        </th>
+        <th class="border">
+            Complaints
+        </th>
+        <th>
+            Bills
+        </th>
+        <th>
+            Changes
+        </th>
+        <th>
+            Contact
+        </th>
+     {% for i in customer %}
+        <tr class="border">
+            <td class="border">
+                {{ i.customer_name }}
+            </td>
+            <td class="border">
+                {{ i.complaints }}
+            </td>
+            <td class="border">
+                {{ i.bills }}
+            </td>
+            <td class="border">
+                {{ i.changes }}
+            </td>
+            <td class="border">
+                {{ i.contact }}
+            </td>
+        </tr>
 
+     {% endfor %}
+    </table>
 </body>
 </html>
 

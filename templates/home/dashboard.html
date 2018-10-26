@@ -1,49 +1,166 @@
 {% extends 'accounts/layout/page.html' %}
-
+{% load static %}
 
 {% block content %}
 
      <html>
         <head>
-            <link href="http://codepen.io/edbond88/pen/CcgvA.css" media="screen" rel="stylesheet" type="text/css" />
-            <style>
-                .split {
-    height: 100%;
-    width: 50%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-                .body{
-                    background-color: rgba(222,222,222,1);
-                }
-                .right {
-    right: 0;
-    background-color: red;
-}
-.left {
-    left: 0;
-    background-color: #111;
-}
-            </style>
+{#            <link href="http://codepen.io/edbond88/pen/CcgvA.css" media="screen" rel="stylesheet" type="text/css" />#}
+                <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
         </head>
+        <style>
+            .note-wrap {
+  width: 235px;
+  min-height: 235px;
+  padding: 35px;
+  margin: 0 22px 44px 22px;
+  position: relative;
+  font-size: 24px;
+  vertical-align: top;
+  display: inline-block;
+  font-family: Englebert, Arial;
+  color: #4b453c;
+  background: #F7E999;
+  line-height: 34px;
+  text-align: center;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+}
+.note-wrap:before {
+  display: block;
+  content: "";
+  background: whitesmoke;
+  width: 130px;
+  height: 28px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 6px/18px 0;
+  position: absolute;
+  top: -13px;
+  left: 50px;
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
+.note-wrap a {
+  color: #6b824f;
+  text-decoration: none;
+  font-size: 20px;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.note-wrap a:hover {
+  color: #D83A25;
+}
 
+.note-yellow {
+  background: #F7E999;
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  -o-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
+
+.note-blue {
+  background: #b9dcf4;
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
+
+.note-pink {
+  background: #FFBDA3;
+  -webkit-transform: rotate(1deg);
+  -moz-transform: rotate(1deg);
+  -o-transform: rotate(1deg);
+  -ms-transform: rotate(1deg);
+  transform: rotate(1deg);
+}
+
+.note-green {
+    background: #CAF4B9;
+    -webkit-transform: rotate(-1deg);
+    -moz-transform: rotate(-1deg);
+    -o-transform: rotate(-1deg);
+    -ms-transform: rotate(-1deg);
+    transform: rotate(-1deg);
+}
+            .right{
+                background-color: lightyellow;
+            }
+            .left{
+                background-color: lightcyan;
+            }
+        </style>
+        <script>
+            $(document).ready(function () {
+                $("#submit").click(function () {
+                    var reminder = $("#reminder").val()
+                    var priority = $("#priority").val()
+                    reminder = JSON.stringify(reminder)
+                    priority = JSON.stringify(priority)
+                    $.post('/dashboard',{reminder:reminder,priority:priority},function (result) {
+                        window.location.href = "{% url 'dashboard' %}"
+                    })
+                })
+            })
+            function deletes(id) {
+                $.post('/dashboard',{id:id},function (result) {
+                    window.location.href = "{% url 'dashboard' %}"
+                })
+
+            }
+        </script>
         <body>
-        <div class="split">
-          <h1>Reminders for you!</h1>
+        <div class="row">
+          <div class="col-lg-6 left">
+                <h4>Don't Know what to put here so added this</h4>
+              <a href="https://www.accuweather.com/en/in/mangalore/188760/weather-forecast/188760" class="aw-widget-legal">
+<!--
+By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at https://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at https://www.accuweather.com/en/privacy.
+-->
+</a><div id="awcc1540585034169" class="aw-widget-current"  data-locationkey="" data-unit="c" data-language="en-us" data-useip="true" data-uid="awcc1540585034169"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>
+          </div>
+          <div class="col-lg-6 right">
+              <h1>Reminders for you!</h1>
 
           {% for i in result %}
-            <aside class="note-wrap note-white">
-              <li>{{ i.description }}</li>
+              {% if i.priority %}
+            <aside class="note-wrap note-green">
+              {{ i.description }}<br/>
+            <button title="Delete the Reminder" onclick="deletes({{ i.index }});"><img src="{% static 'img/cross.png' %}" width="20px" height="20px"></button>
             </aside>
+
+
+            {% else %}
+               <aside class="note-wrap note-white">
+              {{ i.description }}<br/>
+               <button title="Delete the Reminder" onclick="deletes({{ i.index }});"><img src="{% static 'img/cross.png' %}" width="20px" height="20px"></button>
+            </aside>
+              {% endif %}
+
           {% endfor %}
 
-        <form method='POST' action=''>{% csrf_token %}
-            {{ form.as_p }}
-            <input type='submit' value='Add note'>
-        </form>
+
+            {% csrf_token %}
+            <div class="container-fluid">
+                <input type="text" placeholder="Your Reminder Here" id="reminder">
+                <select id="priority">
+                    <option value="High">High</option>
+                    <option value="Average">Average</option>
+                </select>
+                <input type='submit' id="submit" value='Add Reminder'>
+            </div>
+          </div>
 
         </div>
         </body>

@@ -10,7 +10,39 @@
     <title>Leads</title>
 </head>
 <body>
-
+    <h3>Leads To Be Handled</h3><br/>
+    <table class="border">
+        <tr class="border">
+            <th class="border">
+                Customer Name
+            </th>
+            <th>
+                Proposed Project Info
+            </th>
+            <th>
+                Time Required
+            </th>
+            <th>
+                Cost Proposed
+            </th>
+        </tr>
+        {% for i in leads %}
+            <tr class="border">
+                <td class="border">
+                    {{ i.customer_name }}
+                </td>
+                <td class="border">
+                    {{ i.proposed_project_info }}
+                </td>
+                <td class="border">
+                    {{ i.time_required }}
+                </td>
+                <td class="border">
+                    {{ i.cost }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
 

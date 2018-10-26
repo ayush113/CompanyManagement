@@ -25,12 +25,12 @@
 }
 
 .left {
-  left: 0;
+    border: black;
 
 }
 
 .right {
-  right: 0;
+  background-color: lightcyan;
 
 }
         .content{
@@ -62,8 +62,8 @@
     {% csrf_token %}
 
     <body>
-    <div class="content ">
-<div >
+    <div class="content row">
+<div class="col-lg-6 left">
 {#    <div class="row">#}
 {#        Project Name: <label id="name" class="space" type="text" width="100%" value="{{ data.project_name }}"> {{ data.project_name }}#}
 {#    </div>#}
@@ -76,12 +76,34 @@
 {#    <div class="row sub">#}
 {#        <button type="submit" id="change" class="btn btn-primary">Change</button>#}
 {#    </div>#}
-    <h1>{{ data.project_name }}</h1>
+    <h1>{{ data.project_name }}</h1><br/>
     <p>
         {{ data.description }}
     </p>
+    <p>
+    <h4>Project Cost:</h4> Rs. {{data.cost  }}
+    </p>
+
     </div>
-    <div>
+    <div class="col-lg-6 right">
+    <h1>People Working on the Project</h1><br/>
+        <table class="border">
+        <tr class="border">
+            <th class="border">
+                Employee Name
+            </th>
+            <th class="border">
+                Role
+            </th>
+        </tr>
+            {% for res in roles %}
+                <tr class="border">
+                <td class="border">{{ res.first_name }} {{ res.last_name }}</td>
+                <td class="border"> {{ res.role }}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
 
     </div>
 

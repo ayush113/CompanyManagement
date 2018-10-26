@@ -37,7 +37,13 @@ def editpage(request):
         with connection.cursor() as curr:
             curr.execute("select * from project where project_id=%s", [request.GET.get('project_id')])
             res = namedtuplefetchall(curr)
+
+        with connection.cursor() as curr:
+            curr.execute("select first_name,last_name,role from works_on,auth_user where works_on.user_id = auth_user.id and works_on.project_id=%s",[request.GET.get('project_id')])
+            roles = namedtuplefetchall(curr)
         try:
-            return render(request, 'projects/project.html', {'data': res[0]})
+            return render(request, 'projects/project.html', {'data': res[0],'roles':roles})
         except:
             return render(request, 'projects/project.html')
+
+
