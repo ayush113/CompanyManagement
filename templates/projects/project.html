@@ -88,12 +88,13 @@
         function changeRole(identity) {
                 {#$('#main').hide()#}
                 $("#box").show()
-            var act = "change"
+            $("#change").click(function () {
+                var act = "change"
                 act = JSON.stringify(act)
             identity = JSON.stringify(identity)
             let params = (new URL(document.location)).searchParams;
             let projid = params.get("project_id");
-            $("#change").click(function (identity,act,projid) {
+            projid = JSON.stringify(projid)
                 var roles = $("#roles").val()
                 $.post('/projects/individual',{id:identity,act:act,projid:projid,role:roles},function (result) {
                 window.location.href = "{% url 'projects' %}"

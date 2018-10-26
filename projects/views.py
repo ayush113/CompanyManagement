@@ -35,7 +35,9 @@ def editpage(request):
             with connection.cursor() as curr:
                 curr.execute("DELETE FROM works_on WHERE user_id=%s AND project_id=%s",[id,projid])
         else:
-            #role = data.get('role')
+            role = data.get('role')
+            with connection.cursor() as curr:
+                curr.execute("UPDATE works_on SET role = %s WHERE user_id = %s AND project_id=%s",[role,id,projid])
             print(data)
 
 
