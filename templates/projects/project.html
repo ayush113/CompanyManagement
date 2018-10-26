@@ -26,7 +26,7 @@
                 var end = JSON.stringify($("#end").val());
                 $.post('/projects/individual',{name:name,start:start,end:end,id:id},function (result) {
                     alert("Changes Made Succesfully");
-                    window.location.href = "{% url 'dashboard' %}"
+                    window.location.href = "{% url 'projects' %}"
 
                 });
             });
@@ -36,13 +36,13 @@
     {% csrf_token %}
     <div class="jumbotron">
     <div class="row">
-        Project Name: <input id="name" class="space" type="text" width="100%" value="{{ data.project_name }}">
+        Project Name: <label id="name" class="space" type="text" width="100%" value="{{ data.project_name }}"> {{ data.project_name }}
     </div>
     <div class="row">
-        Start Date: <input id="start" class="space" type="text" width="100%" value="{{ data.start_date }}">
+        Start Date: <label id="start" class="space" type="text" width="100%" value="{{ data.start_date }}"> {{ data.start_date }}
     </div>
     <div class="row">
-        Deadline: <input id="end" class="space" type="text" width="100%" value="{{ data.deadline }}">
+        Deadline: <label id="end" class="space" type="text" width="100%" value="{{ data.deadline }}"> {{ data.deadline }}
     </div>
     <div class="row sub">
         <button type="submit" id="change" class="btn btn-primary">Change</button>

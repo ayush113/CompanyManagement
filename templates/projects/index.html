@@ -32,7 +32,9 @@ body{
 </head>
 <body>
 {% csrf_token %}
-<div class="row">
+<div class="jumbotron-fluid">
+
+    <div class="row">
 {% for project in projects %}
     <div class="col-sm-12">
     <a href="{% url 'project_indiv' %}?project_id={{ project.project_id }}" style="color: black">
@@ -51,6 +53,9 @@ body{
 {% endfor %}
 
 </div>
+
+</div>
+
 
 
 </body>
