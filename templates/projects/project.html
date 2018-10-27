@@ -53,7 +53,7 @@
             border: 2px solid red;
             border-collapse: collapse;
         }
-        #box{
+        #box,#box2{
             background-color: dimgray;
         }
     </style>
@@ -66,6 +66,7 @@
 
         $(document).ready(function () {
             $("#box").hide()
+            $("#box2").hide()
 
             $("#change").click(function () {
                 let params = (new URL(document.location)).searchParams;
@@ -98,7 +99,7 @@
 
         function changeRole(identity) {
                 {#$('#main').hide()#}
-                $("#box").show()
+                $("#box").toggle()
             $("#change").click(function () {
                 var act = "change"
                 act = JSON.stringify(act)
@@ -131,6 +132,27 @@
                 location.reload();
 
             })
+        }
+
+        function sendNote(identity) {
+
+            $("#box2").toggle()
+
+            $("#send").click(function () {
+                 var id = JSON.stringify(identity)
+            var act = "send"
+            act = JSON.stringify(act)
+             var note = $("#note").val()
+                note = JSON.stringify(note)
+                let params = (new URL(document.location)).searchParams;
+            let projid = params.get("project_id");
+            projid = JSON.stringify(projid)
+                $.post('/projects/individual',{act:act,id:id,note:note,projid:projid},function (result) {
+                    location.reload();
+                })
+            })
+
+
         }
 
     </script>
@@ -170,9 +192,14 @@
                 <td class="border pads">{{ res.first_name }} {{ res.last_name }}</td>
                 <td class="border pads"> {{ res.role }}</td>
                     {% if leader %}
+                        {% if user.id == res.user_id %}
                     <td class="border pads"><button onclick="remove({{ res.user_id }});" class="btn btn-default theme">Remove From Project</button> &nbsp &nbsp <button onclick="changeRole({{ res.user_id }});" class="btn btn-default theme">Change Role</button></td>
-                     {% else %}
-                    <td class="border pads">No Action Possible</td>
+
+                            {% else %}
+                    <td class="border pads"><button onclick="remove({{ res.user_id }});" class="btn btn-default theme">Remove From Project</button> &nbsp &nbsp <button onclick="changeRole({{ res.user_id }});" class="btn btn-default theme">Change Role</button>&nbsp; &nbsp; <button class="btn btn-default theme" onclick="sendNote({{ res.user_id }})">Send a Note</button></td>
+                        {% endif %}
+                        {% else %}
+                    <td class="border pads"><button class="btn btn-default theme" onclick="sendNote({{ res.user_id }})">Send a Note</button> </td>
                     {% endif %}
                 <td class="border pads">{{ res.email }}</td>
                 </tr>
@@ -214,7 +241,13 @@
             <option value="Designer">Designer</option>
             <option value="Analyst">Analyst</option>
         </select><br/><br/>
-        <button id="change">Change Role</button>
+        <button id="change" class="btn btn-default theme">Change Role</button>
+    </div>
+
+    <div id="box2" class="jumbotron centered">
+        Enter your Message:<br/><br/>
+        <input type="text" id="note"><br/><br/>
+        <button id="send" class="btn btn-default theme">Send</button>
     </div>
 
     </body>

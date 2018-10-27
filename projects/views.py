@@ -44,7 +44,6 @@ def editpage(request):
                 name = json.loads(name)
                 name = name.split(' ')
                 print(name)
-
                 with connection.cursor() as curr:
                     curr.execute("SELECT id from auth_user where first_name=%s and last_name=%s",[name[0],name[1]])
                     idres = namedtuplefetchall(curr)
@@ -53,13 +52,25 @@ def editpage(request):
                     curr.execute("INSERT INTO works_on(user_id,project_id,role) VALUES (%s,%s,%s)",[id,projid,role])
                 return JsonResponse(1,safe=False)
             else:
-                id = json.loads(data.get('id'))
-                id = int(id)
-                role = data.get('role')
-                with connection.cursor() as curr:
-                    curr.execute("UPDATE works_on SET role = %s WHERE user_id = %s AND project_id=%s",
-                                 [role, id, projid])
-                print(data)
+
+                if action == "send":
+                    note = data.get('note')
+                    note = json.loads(note)
+                    id = data.get('id')
+                    id = json.loads(id)
+                    name = request.user.first_name + " " + request.user.last_name
+                    with connection.cursor() as curr:
+                        curr.execute("INSERT INTO reminder(id,description,priority,frm) VALUES(%s,%s,%s,%s)",[id,note,2,name])
+                    return JsonResponse(1,safe=False)
+
+                else:
+                    id = json.loads(data.get('id'))
+                    id = int(id)
+                    role = data.get('role')
+                    with connection.cursor() as curr:
+                        curr.execute("UPDATE works_on SET role = %s WHERE user_id = %s AND project_id=%s",
+                                     [role, id, projid])
+                    print(data)
 
 
 
