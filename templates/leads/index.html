@@ -55,7 +55,7 @@
             console.log(name+customerID+descript+cost);
             $.post('/leads/',{name:name,customerID:customerID,descript:descript,cost:cost},function (result) {
 
-                location.reload();
+                window.location.href = "{% url 'projects' %}"
 
             })
 

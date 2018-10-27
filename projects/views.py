@@ -78,6 +78,16 @@ def editpage(request):
 
     else :
         with connection.cursor() as curr:
+            curr.execute("SELECT * FROM works_on WHERE user_id = %s AND project_id=%s",[request.user.id,request.GET.get('project_id')])
+            member = namedtuplefetchall(curr)
+        if(len(member) == 0):
+            member = 0
+        else:
+            member = 1
+
+        print(member)
+
+        with connection.cursor() as curr:
             curr.execute("select project.leader from project,works_on where works_on.project_id=project.project_id and project.leader=works_on.user_id and works_on.user_id=%s and project.project_id=%s",[request.user.id,request.GET.get('project_id')])
             result = namedtuplefetchall(curr)
         if len(result) == 0:
@@ -97,8 +107,8 @@ def editpage(request):
             addUser = namedtuplefetchall(curr)
 
         try:
-            return render(request, 'projects/project.html', {'data': res[0],'roles':roles,'leader':leader,'addUser':addUser})
+            return render(request, 'projects/project.html', {'data': res[0],'roles':roles,'leader':leader,'addUser':addUser,'member':member})
         except:
-            return render(request, 'projects/project.html')
+            return render(request, 'projects/project.html',{'member': member})
 
 

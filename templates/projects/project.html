@@ -160,7 +160,9 @@
     {% csrf_token %}
 
     <body>
-    <div class="content row" id="main">
+    {% if member %}
+
+        <div class="content row" id="main">
 <div>
     <h1>{{ data.project_name }}</h1><br/>
     <p>
@@ -249,6 +251,14 @@
         <input type="text" id="note"><br/><br/>
         <button id="send" class="btn btn-default theme">Send</button>
     </div>
+
+    {% else %}
+
+        <h4 style="color: red">Access not allowed</h4>
+
+        <a href="{% url 'projects' %}">Go Back</a>
+
+    {% endif %}
 
     </body>
 
