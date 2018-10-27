@@ -23,23 +23,44 @@ def editpage(request):
     variable = 0
     if request.method == "POST":
         data = request.POST
-        id = json.loads(data.get('id'))
-        id = int(id)
+
         action = json.loads(data.get('act'))
         print(action)
         projid = int(json.loads(data.get('projid')))
 
         if(action == "remove"):
+            id = json.loads(data.get('id'))
+            id = int(id)
             if id == request.user.id:
                 messages.warning(request, "Can Not Remove Yourself")
                 return JsonResponse(1, safe=False)
             with connection.cursor() as curr:
                 curr.execute("DELETE FROM works_on WHERE user_id=%s AND project_id=%s",[id,projid])
         else:
-            role = data.get('role')
-            with connection.cursor() as curr:
-                curr.execute("UPDATE works_on SET role = %s WHERE user_id = %s AND project_id=%s",[role,id,projid])
-            print(data)
+            if action == "add":
+                role = data.get('roles')
+                role = json.loads(role)
+                name = data.get('name')
+                name = json.loads(name)
+                name = name.split(' ')
+                print(name)
+
+                with connection.cursor() as curr:
+                    curr.execute("SELECT id from auth_user where first_name=%s and last_name=%s",[name[0],name[1]])
+                    idres = namedtuplefetchall(curr)
+                id = idres[0].id
+                with connection.cursor() as curr:
+                    curr.execute("INSERT INTO works_on(user_id,project_id,role) VALUES (%s,%s,%s)",[id,projid,role])
+                return JsonResponse(1,safe=False)
+            else:
+                id = json.loads(data.get('id'))
+                id = int(id)
+                role = data.get('role')
+                with connection.cursor() as curr:
+                    curr.execute("UPDATE works_on SET role = %s WHERE user_id = %s AND project_id=%s",
+                                 [role, id, projid])
+                print(data)
+
 
 
         return JsonResponse(1,safe=False)
@@ -59,8 +80,13 @@ def editpage(request):
         with connection.cursor() as curr:
             curr.execute("select first_name,last_name,role,works_on.user_id,auth_user.email from works_on,auth_user where works_on.user_id = auth_user.id and works_on.project_id=%s",[request.GET.get('project_id')])
             roles = namedtuplefetchall(curr)
+
+        with connection.cursor() as curr:
+            curr.execute("select first_name,last_name,id from auth_user where id in (select distinct user_id from works_on where user_id not in (select user_id from works_on where project_id=%s))",[request.GET.get('project_id')])
+            addUser = namedtuplefetchall(curr)
+
         try:
-            return render(request, 'projects/project.html', {'data': res[0],'roles':roles,'leader':leader})
+            return render(request, 'projects/project.html', {'data': res[0],'roles':roles,'leader':leader,'addUser':addUser})
         except:
             return render(request, 'projects/project.html')
 

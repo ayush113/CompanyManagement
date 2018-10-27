@@ -89,7 +89,7 @@
             let projid = params.get("project_id");
             $.post('/projects/individual',{id:identity,act:act,projid:projid},function (result) {
 
-                window.location.href = "{% url 'projects' %}"
+                location.reload();
 
             })
 
@@ -108,11 +108,31 @@
             projid = JSON.stringify(projid)
                 var roles = $("#roles").val()
                 $.post('/projects/individual',{id:identity,act:act,projid:projid,role:roles},function (result) {
-                window.location.href = "{% url 'projects' %}"
+                location.reload();
             })
             })
 
             };
+
+        function addUser() {
+
+            var name = $("#addUser").val()
+            name = JSON.stringify(name)
+            var roles = $("#addroles").val()
+            roles = JSON.stringify(roles)
+            var act = "add"
+            act = JSON.stringify(act)
+            let params = (new URL(document.location)).searchParams;
+            let projid = params.get("project_id");
+            projid = JSON.stringify(projid)
+
+            $.post('/projects/individual',{act:act,name:name,roles:roles,projid:projid},function (result) {
+
+                location.reload();
+
+            })
+        }
+
     </script>
     </head>
     {% csrf_token %}
@@ -159,11 +179,29 @@
 
             {% endfor %}
         </table>
+    <br/>
+        {% if leader %}
+            {% csrf_token %}
+    <h4>Add people to the project</h4><br/>
+            <select id="addUser">
+            {% for res in addUser %}
+                <option value="{{ res.first_name }} {{ res.last_name }}">{{ res.first_name }} {{ res.last_name }}</option>
+            {% endfor %}
+            </select>&nbsp; &nbsp;
+            <select id="addroles">
+            <option value="Accountant">Accountant</option>
+            <option value="Project Developer">Project Developer</option>
+            <option value="Human Resources">Human Resources</option>
+            <option value="Strategist">Strategist</option>
+            <option value="Designer">Designer</option>
+            <option value="Analyst">Analyst</option>
+        </select>&nbsp; &nbsp;
+            <button class="btn btn-default theme " onclick="addUser();">Add</button>
+
+
+    {% endif %}
 
     </div>
-
-    {% if  %}
-    <h4>Add people to the project</h4>
 
     </div>
     <div  id="box" class="jumbotron centered">
