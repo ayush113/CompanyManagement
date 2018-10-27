@@ -52,8 +52,8 @@
   crossorigin="anonymous"></script>
     <script>
 
-        $(document).ready(function () {
 
+        $(document).ready(function () {
             $("#box").hide()
 
             $("#change").click(function () {
@@ -109,18 +109,6 @@
     <body>
     <div class="content row" id="main">
 <div class="col-lg-6 left">
-{#    <div class="row">#}
-{#        Project Name: <label id="name" class="space" type="text" width="100%" value="{{ data.project_name }}"> {{ data.project_name }}#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        Start Date: <label id="start" class="space" type="text" width="100%" value="{{ data.start_date }}"> {{ data.start_date }}#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        Deadline: <label id="end" class="space" type="text" width="100%" value="{{ data.deadline }}"> {{ data.deadline }}#}
-{#    </div>#}
-{#    <div class="row sub">#}
-{#        <button type="submit" id="change" class="btn btn-primary">Change</button>#}
-{#    </div>#}
     <h1>{{ data.project_name }}</h1><br/>
     <p>
         {{ data.description }}

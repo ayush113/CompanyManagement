@@ -5,6 +5,8 @@
 
      <html>
         <head>
+            <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {#            <link href="http://codepen.io/edbond88/pen/CcgvA.css" media="screen" rel="stylesheet" type="text/css" />#}
                 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -12,6 +14,19 @@
   crossorigin="anonymous"></script>
         </head>
         <style>
+            .marg{
+                margin-bottom: 30px;
+            }
+
+            #date{
+                color: white;
+                font-family: 'Lato';
+            }
+            #greet{
+                font-size: 55px;
+                color: white;
+            }
+
             .note-wrap {
   width: 235px;
   min-height: 235px;
@@ -28,23 +43,7 @@
   text-align: center;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
-.note-wrap:before {
-  display: block;
-  content: "";
-  background: whitesmoke;
-  width: 130px;
-  height: 28px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 6px/18px 0;
-  position: absolute;
-  top: -13px;
-  left: 50px;
-  -webkit-transform: rotate(-2deg);
-  -moz-transform: rotate(-2deg);
-  -o-transform: rotate(-2deg);
-  -ms-transform: rotate(-2deg);
-  transform: rotate(-2deg);
-}
+
 .note-wrap a {
   color: #6b824f;
   text-decoration: none;
@@ -71,10 +70,10 @@
 .note-blue {
   background: #b9dcf4;
   -webkit-transform: rotate(-2deg);
-  -moz-transform: rotate(-2deg);
-  -o-transform: rotate(-2deg);
-  -ms-transform: rotate(-2deg);
-  transform: rotate(-2deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 .note-pink {
@@ -94,15 +93,26 @@
     -ms-transform: rotate(-1deg);
     transform: rotate(-1deg);
 }
-            .right{
-                background-color: lightyellow;
+            #reminder{
+                border-radius: 8px;
             }
-            .left{
-                background-color: lightcyan;
+
+            #submit{
+                border-radius: 12px;
+                background-color: lawngreen;
             }
+
+            .hov{
+                background-color: black;
+                color: gray
+            }
+
         </style>
         <script>
             $(document).ready(function () {
+
+                $(".hides").hide()
+
                 $("#submit").click(function () {
                     var reminder = $("#reminder").val()
                     var priority = $("#priority").val()
@@ -112,6 +122,8 @@
                         window.location.href = "{% url 'dashboard' %}"
                     })
                 })
+
+                
             })
             function deletes(id) {
                 $.post('/dashboard',{id:id},function (result) {
@@ -119,47 +131,59 @@
                 })
 
             }
+
+            function reveal(id) {
+
+                var text = "#rem"+id.toString()
+
+                $(text).toggle()
+
+
+            }
         </script>
         <body>
         <div class="row">
           <div class="col-lg-6 left">
-                <h4>Don't Know what to put here so added this</h4>
-              <a href="https://www.accuweather.com/en/in/mangalore/188760/weather-forecast/188760" class="aw-widget-legal">
-<!--
-By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at https://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at https://www.accuweather.com/en/privacy.
--->
-</a><div id="awcc1540585034169" class="aw-widget-current"  data-locationkey="" data-unit="c" data-language="en-us" data-useip="true" data-uid="awcc1540585034169"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>
+                <h1 id="date" style="color: lawngreen; font-size: 80px">{{ time.time }}</h1>
+                <h4 id="date">{{ time.day }} , {{ time.month }} {{ time.date }}</h4><br/>
+              <p id="greet">How's your day going {{ user.first_name }} ?</p>
+
+                {% csrf_token %}
+            <div class="container-fluid">
+                <input type="text" placeholder="Your Reminder Here" id="reminder"> &nbsp
+                <select id="priority">
+                    <option value="High">High</option>
+                    <option value="Average">Average</option>
+                </select>
+                <br/><br/>
+                <button class="btn btn-cta" type="submit" id="submit" value="Add Reminder">Add Reminder</button>
+            </div>
           </div>
           <div class="col-lg-6 right">
-              <h1>Reminders for you!</h1>
+
 
           {% for i in result %}
               {% if i.priority %}
-            <aside class="note-wrap note-green">
+
+            <aside class="note-wrap note-green" id="{{ i.index }}" onclick="reveal({{ i.index }});">
+                <div id="rem{{ i.index }}"  class="hides"><button  class="float-right btn btn-default btn-sm hov"  title="Delete the Reminder" onclick="deletes({{ i.index }});"><i class="fa fa-trash"></i></button><br/></div>
               {{ i.description }}<br/>
-            <button title="Delete the Reminder" onclick="deletes({{ i.index }});"><img src="{% static 'img/cross.png' %}" width="20px" height="20px"></button>
+
             </aside>
 
 
             {% else %}
-               <aside class="note-wrap note-white">
-              {{ i.description }}<br/>
-               <button title="Delete the Reminder" onclick="deletes({{ i.index }});"><img src="{% static 'img/cross.png' %}" width="20px" height="20px"></button>
+               <aside class="note-wrap note-blue" id="{{ i.index }}" onclick="reveal({{ i.index }});">
+                    <div id="rem{{ i.index }}"  class="hides"><button  class="float-right btn-default btn btn-sm hov"  title="Delete the Reminder" onclick="deletes({{ i.index }});"><i class="fa fa-trash"></i></button><br/></div>
+                   {{ i.description }}<br/>
+
             </aside>
               {% endif %}
 
           {% endfor %}
 
 
-            {% csrf_token %}
-            <div class="container-fluid">
-                <input type="text" placeholder="Your Reminder Here" id="reminder">
-                <select id="priority">
-                    <option value="High">High</option>
-                    <option value="Average">Average</option>
-                </select>
-                <input type='submit' id="submit" value='Add Reminder'>
-            </div>
+
           </div>
 
         </div>

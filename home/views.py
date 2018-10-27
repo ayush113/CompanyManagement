@@ -10,6 +10,8 @@ from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 
+from datetime import datetime
+
 # Create your views here.
 def landing(request):
     return render(request,'home/landing.html')
@@ -42,4 +44,15 @@ def dashboard(request):
     with connection.cursor() as curr:
         curr.execute("SELECT * FROM reminder WHERE id = %s",[request.user.id])
         res = namedtuplefetchall(curr)
-    return render(request,'home/dashboard.html',{'result': res})
+    now = datetime.now()
+    day = now.strftime("%A")
+    month = now.strftime("%B")
+    crtime = now.strftime('%H:%M')
+    date = now.date().day
+    time = {
+        'time':crtime,
+        'day':day,
+        'month':month,
+        'date': date
+    }
+    return render(request,'home/dashboard.html',{'result': res,'time':time})
