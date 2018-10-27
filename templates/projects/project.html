@@ -32,18 +32,29 @@
    background-color: lightcyan;
 }
 
-.left {
-    border: black;
 
-}
-
-.right {
-  background-color: lightcyan;
-
-}
         .content{
             margin-top: 30px;
-            background: rgba(222,222,222,1);;
+            padding-left: 20px;
+        }
+        .theme{
+            background-color: lawngreen;
+            border-radius: 12px;
+        }
+        .pads{
+            padding-left: 10px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        .border{
+            border: black;
+        }
+        table,th,td{
+            border: 2px solid red;
+            border-collapse: collapse;
+        }
+        #box{
+            background-color: dimgray;
         }
     </style>
         <script
@@ -108,40 +119,42 @@
 
     <body>
     <div class="content row" id="main">
-<div class="col-lg-6 left">
+<div>
     <h1>{{ data.project_name }}</h1><br/>
     <p>
         {{ data.description }}
     </p>
     <p>
     <h4>Project Cost:</h4> Rs. {{data.cost  }}
-    </p>
+    </p><br/><br/>
 
-    </div>
-    <div class="col-lg-6 right">
-    <h1>People Working on the Project</h1><br/>
+    <h4>People Working on the Project</h4><br/>
         <table class="border">
         <tr class="border">
-            <th class="border">
+            <th class="border pads">
                 Employee Name
             </th>
-            <th class="border">
+            <th class="border pads">
                 Role
             </th>
-            <th class="border-danger">
+            <th class="border pads">
                 Actions Possible
+            </th>
+            <th class="border pads">
+                Contact Details
             </th>
         </tr>
             {% csrf_token %}
             {% for res in roles %}
                 <tr class="border">
-                <td class="border">{{ res.first_name }} {{ res.last_name }}</td>
-                <td class="border"> {{ res.role }}</td>
+                <td class="border pads">{{ res.first_name }} {{ res.last_name }}</td>
+                <td class="border pads"> {{ res.role }}</td>
                     {% if leader %}
-                    <td class="border-danger"><button onclick="remove({{ res.user_id }});" class="btn-outline-danger">Remove From Project</button> &nbsp &nbsp <button onclick="changeRole({{ res.user_id }});" class="btn-outline-primary">Change Role</button></td>
+                    <td class="border pads"><button onclick="remove({{ res.user_id }});" class="btn btn-default theme">Remove From Project</button> &nbsp &nbsp <button onclick="changeRole({{ res.user_id }});" class="btn btn-default theme">Change Role</button></td>
                      {% else %}
-                    <td class="border-danger">No Action Possible</td>
+                    <td class="border pads">No Action Possible</td>
                     {% endif %}
+                <td class="border pads">{{ res.email }}</td>
                 </tr>
 
             {% endfor %}
@@ -149,12 +162,23 @@
 
     </div>
 
+    {% if  %}
+    <h4>Add people to the project</h4>
+
     </div>
     <div  id="box" class="jumbotron centered">
         Enter New Role: <br/><br/>
-        <input type="text" id="roles"><br/><br/>
+        <select id="roles">
+            <option value="Accountant">Accountant</option>
+            <option value="Project Developer">Project Developer</option>
+            <option value="Human Resources">Human Resources</option>
+            <option value="Strategist">Strategist</option>
+            <option value="Designer">Designer</option>
+            <option value="Analyst">Analyst</option>
+        </select><br/><br/>
         <button id="change">Change Role</button>
     </div>
+
     </body>
 
 {% endblock %}
