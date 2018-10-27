@@ -15,6 +15,7 @@
   crossorigin="anonymous"></script>
     <script>
 
+        var res='';
 
 
          $(document).ready(function () {
@@ -25,9 +26,41 @@
         function fetchDetails(info) {
 
             $("#infor").toggle();
-            document.getElementById("data").innerHTML = info
+            res ='';
+            res = info.split('+');
+            document.getElementById("data").innerHTML = res[0];
+            document.getElementById("titl").innerHTML = res[1];
+            document.getElementById("proposer").innerHTML = "Project proposed by " +  res[2] ;
             
         };
+
+
+        function addProject() {
+
+
+            var name = res[1];
+            name = JSON.stringify(name)
+
+            var customerID = res[3];
+            customerID = JSON.stringify(customerID);
+
+
+            var descript = res[0];
+            descript = JSON.stringify(descript);
+
+            var cost = res[4];
+            cost = JSON.stringify(cost);
+
+
+            console.log(name+customerID+descript+cost);
+            $.post('leads/',{name:name,customerID:customerID,descript:descript,cost:cost},function (result) {
+
+                location.reload();
+
+            })
+
+
+        }
     </script>
 
     <style>
@@ -38,6 +71,12 @@
         .theme{
             background-color: lawngreen;
             border-radius: 12px;
+        }
+
+        .textheader{
+
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
     </style>
 </head>
@@ -80,17 +119,24 @@
                     {{ i.cost }}
                 </td>
 
-                <td class="border pads"><button class="btn btn-default theme" onclick="fetchDetails('{{ i.info }}');">Get Details</button></td>
+                <td class="border pads"><button class="btn btn-default theme" onclick="fetchDetails('{{ i.info }}'+'+'+'{{ i.proposed_project_info }}'+'+'+ '{{ i.customer_name }}'+'+'+'{{ i.customer_id }}'+'+'+{{ i.cost }});">Get Details</button></td>
 
             </tr>
         {% endfor %}
     </table>
         </div>
 
+
     <div class="col-lg-6 " id="infor">
 
+        <h2 id="titl" class="textheader"></h2>
+         <h4 id="proposer" class="textheader"></h4>
+        <p id="data" style="font-family: 'Lato';"></p>
 
-        <p id="data"> SJBDASHD</p>
+        <button class="btn btn-default theme" onclick="addProject()">
+            Add as project
+        </button>
+
 
     </div>
 
