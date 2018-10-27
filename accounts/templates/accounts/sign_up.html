@@ -4,15 +4,32 @@
 {% load i18n %}
 
 {% block content %}
+    <style>
+    body{
+        background-color: lightgray;
+    }
+    .signs{
+        border-radius: 12px;
+        background-color: lawngreen;
+    }
+    .constrained{
+        width: fit-content;
+        padding-left: 20px;
 
-    <h4>{% trans 'Create an account' %}</h4>
+    }
+    </style>
+
+
 
     <form method="post">
 
-        {% csrf_token %}
+        <div class="constrained">
+        <h4>{% trans 'Create an account' %}</h4>
+            {% csrf_token %}
         {% bootstrap_form form %}
 
-        <button class="btn btn-success">{% trans 'Create' %}</button>
+        <button class="btn btn-success signs">{% trans 'Create' %}</button>
+        </div>
 
     </form>
 

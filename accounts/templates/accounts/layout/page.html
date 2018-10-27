@@ -15,7 +15,7 @@
     <meta name="description" content="CRM Application">
     <meta name="author" content="Gauri Baraskar">
 
-    <link rel="icon" href="{% static 'hoop.svg' %}">
+    <link rel="icon" href="{% static 'finallogo.png' %}">
 
     <title>CRM</title>
 
@@ -96,13 +96,13 @@ function closeNav() {
 
     {% if request.user.is_authenticated %}
     <div id="mySidenav" class="sidenav navbar-brand">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="{% url 'dashboard' %}">{% trans 'Home' %}</a>
-  <a href="{% url 'projects' %}">My Projects</a>
-  <a href="{% url 'leads' %}">Leads</a>
-  <a href="{% url 'customer' %}">Customer Support</a>
-  <a href="{% url 'social' %}">Social</a>
-</div>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="{% url 'dashboard' %}">{% trans 'Home' %}</a>
+    <a href="{% url 'projects' %}">My Projects</a>
+    <a href="{% url 'leads' %}">Leads</a>
+    <a href="{% url 'customer' %}">Customer Support</a>
+    <a href="{% url 'social' %}">Social</a>
+    </div>
 
         <span style="cursor:pointer;color: white;font-size: 20px" onclick="openNav()">&#9776;</span>
 {% endif %}
@@ -132,7 +132,8 @@ function closeNav() {
      <p style="padding-top: 10px;color: white">
 
          {#  {{ user.first_name }} {{ user.last_name }}   #}
-        <div class="basics">
+        {% if request.user.is_authenticated %}
+         <div class="basics">
                 <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white">{{ user.first_name }} {{ user.last_name }}
         <span class="caret"></span></a>
@@ -144,8 +145,7 @@ function closeNav() {
         </ul>
       </li>
                 </div>
-
-         <img src="{% static 'img/logo.png' %}"  width="20" height="20">
+         {% endif %}
 
      </p>
     </div>

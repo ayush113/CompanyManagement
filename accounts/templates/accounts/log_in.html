@@ -4,15 +4,31 @@
 {% load i18n %}
 
 {% block content %}
+    <style>
+    body{
+        background-color: lightgray;
+    }
+    .logs{
+        border-radius: 12px;
+        background-color: lawngreen;
+    }
+    .constrained{
+        width: fit-content;
+        padding-left: 10px;
+    }
+    </style>
 
-    <h4>{% trans 'Log in' %}</h4>
+
 
     <form method="post">
 
-        {% csrf_token %}
+        <div class="constrained">
+            <h4>{% trans 'Log in' %}</h4>
+            {% csrf_token %}
         {% bootstrap_form form %}
 
-        <button class="btn btn-primary">{% trans 'Log in' %}</button>
+        <button class="btn btn-cta logs">{% trans 'Log in' %}</button>
+        </div>
 
     </form>
 
