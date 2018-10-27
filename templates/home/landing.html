@@ -1,92 +1,334 @@
-<htmL>
+{% load static %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% load staticfiles %}
 
-    <head>
-<title>HOME</title>
-</head>
+{% get_current_language as language_code %}
 
-<style>
-.container{
-    background-color: powderblue;
-    padding-right: 70px;
-    padding-left: 70px;
-    padding-top: 20px;
-}
+<!DOCTYPE HTML>
+<!--
+	Justice by freehtml5.co
+	Twitter: http://twitter.com/fh5co
+	URL: http://freehtml5.co
+-->
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lock your lead&mdash; Free Website Template, Free HTML5 Template by FreeHTML5.co</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
+	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FreeHTML5.co" />
 
-    .button {
-  border-radius: 4px;
-  background-color: teal;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 28px;
-  padding: 20px;
-  width: 200px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
 
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
+	<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400, 900" rel="stylesheet"> -->
 
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-    .btn{
-        position: fixed;
-        padding-bottom: 20px;
-    }
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'css1/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'css1/icomoon.css' %}">
+	<!-- Themify Icons-->
+	<link rel="stylesheet" href="{% static 'css1/themify-icons.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'css1/bootstrap.css' %}">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'css1/magnific-popup.css' %}">
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="{% static 'css1/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css1/owl.theme.default.min.css' %}">
+	<!-- Flexslider -->
+	<link rel="stylesheet" href="{% static 'css1/flexslider.css' %}">
+{#	<!-- Theme style  -->#}
+	<link rel="stylesheet" href="{% static 'css1/style.css' %}">
 
-.button:hover span {
-  padding-right: 25px;
-}
+	<!-- Modernizr JS -->
+	<script src="{% static 'js1/modernizr-2.6.2.min.js' %}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="{% static 'js1/respond.min.js' %}"></script>
+	<![endif]-->
 
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-    .main{
-        position: relative;
-    }
-    .cont2{
-        position: absolute;
-        right: 0;
-        padding-top: 100px;
-        padding-left: 100px;
-        padding-bottom: 100px;
-    }
-</style>
+	</head>
+	<body>
 
-<body class="container">
-<div class="main">
-    <div class="cont1">
-        <h1 style="text-align: right">
-            Customer Relationship Management.
-        </h1>
-        <h3 style="text-align: right">
-            Helping your business just like your clients.
-        </h3>
+	<div class="gtco-loader"></div>
 
+	<div id="page">
+	<nav class="gtco-nav" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-2 col-xs-12">
+					<div id="gtco-logo"><a href="landing.html">LeadLock</a></div>
+				</div>
+				<div class="col-xs-10 text-right menu-1 main-nav">
+					<ul>
+						<li class="active"><a href="#" data-nav-section="home">Home</a></li>
+						<li><a href="#" data-nav-section="about">About</a></li>
+						<li><a href="#" data-nav-section="practice-areas">Practice Areas</a></li>
+						<li><a href="#" data-nav-section="our-team">Our Team</a></li>
+						<li class="btn-cta"><a href="{% url 'accounts:sign_up' %}"><span>Login</span></a>
+                        <li class="btn-cta"><a href="{% url 'accounts:log_in' %}"><span>Sign up</span></a>
+                        </li>
+						<!-- For external page link -->
+						<!-- <li><a href="http://freehtml5.co/" class="external">External</a></li> -->
+					</ul>
+				</div>
+			</div>
 
+		</div>
+	</nav>
 
-    </div>
-    <div class="btn cont2" >
-     <a href="{% url 'accounts:sign_up' %}"><button class="button"><span>Sign up </span></button></a>
-    <a href="{% url 'accounts:log_in' %}"><button class="button"><span>Login </span></button></a>
+	<section id="gtco-hero" class="gtco-cover" style="background-image: url("{% static 'images/img_bg_4.jpg' %}");"  data-section="home"  data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-md-offset-0 text-center">
+					<div class="display-t">
+						<div class="display-tc">
+							<h1 class="animate-box" data-animate-effect="fadeIn">The Greatest CRM You Can Trust</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-        </div>
-</div>
+	<section id="gtco-about" data-section="about">
+		<div class="container">
+			<div class="row row-pb-md">
+				<div class="col-md-8 col-md-offset-2 heading animate-box" data-animate-effect="fadeIn">
+					<h1>Welcome To Our World of Softwares</h1>
+					<p class="sub">We make softwares to make life easier and change this world with baby footsteps.</p>
+					<p class="subtle-text animate-box" data-animate-effect="fadeIn">Welcome</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-pull-1 animate-box" data-animate-effect="fadeInLeft">
+					<div class="img-shadow">
+						<img src="{%  static 'images/img_1.jpg' %}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+					</div>
+				</div>
+				<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+					<h2 class="heading-colored">Excellence &amp; Honesty</h2>
+					<p>We at Hue softwares believe in working with honest intentions for the real good of people. Every one contributes their best to all their projects.We wish to achieve excellence by puttin gin our 100%.</p>
+					<p><a href="#" class="read-more">Read more <i class="icon-chevron-right"></i></a></p>
+				</div>
+			</div>
+		</div>
+	</section>
 
+	<section id="gtco-practice-areas" data-section="practice-areas">
+		<div class="container">
+			<div class="row row-pb-md">
+				<div class="col-md-8 col-md-offset-2 heading animate-box" data-animate-effect="fadeIn">
+					<h1>Software areas</h1>
+					<p class="sub">We make softwares for many businesses of which few a listed here.</p>
+					<p class="subtle-text animate-box" data-animate-effect="fadeIn">Practice <span>Areas</span></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="gtco-practice-area-item animate-box">
+						<div class="gtco-icon">
+							<img src="{%  static 'images/scale.png' %}" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+						</div>
+						<div class="gtco-copy">
+							<h3>Small scale business</h3>
+							<p>Our software MIND MY BUSINESS is very suitable for all small and medium scale proprietors as it allows them to maintain balance sheets,inventories and update them as they like. </p>
+						</div>
+					</div>
 
+					<div class="gtco-practice-area-item animate-box">
+						<div class="gtco-icon">
+							<img src="{% static 'images/scale.png' %}" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+						</div>
+						<div class="gtco-copy">
+							<h3>Restaurants</h3>
+							<p> our software FOODHUB can be used for all kinds of munching places whuch helps the manager to maintain bills and keep record of all staff is the easiest eay possibe.</p>
+						</div>
+					</div>
 
-</body>
-</htmL>
+					<div class="gtco-practice-area-item animate-box">
+						<div class="gtco-icon">
+							<img src="{% static 'images/scale.png' %}" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+						</div>
+						<div class="gtco-copy">
+							<h3>Education</h3>
+							<p>We provide multiple softwares in the field of education providing classroom tutorials, distant learning programs and assignment submissions.</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-6">
+
+					<div class="gtco-practice-area-item animate-box">
+						<div class="gtco-icon">
+							<img src="{% static 'images/scale.png' %}" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+						</div>
+						<div class="gtco-copy">
+							<h3>Code Editing</h3>
+							<p>Our CODEDIT software lets you write code with ease as we provide IntelliSense. The software supports a wide range if langusges and frameworks.</p>
+						</div>
+					</div>
+
+					<div class="gtco-practice-area-item animate-box">
+						<div class="gtco-icon">
+							<img src="{% static 'images/scale.png' %}" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+						</div>
+						<div class="gtco-copy">
+							<h3>Personal Organistaion</h3>
+							<p> The MYAPP software will help you organise your day better and increase you productivity.</p>
+						</div>
+					</div>
+
+					<div class="gtco-practice-area-item animate-box">
+						<div class="gtco-icon">
+							<img src="{% static 'images/scale.png' %}" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+						</div>
+						<div class="gtco-copy">
+							<h3>Create your website</h3>
+							<p>With our MYDESIGN sofware you can download thousands of templates for free and experiment with them to make your own website in a matter of few days.</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="gtco-our-team" data-section="our-team">
+		<div class="container">
+			<div class="row row-pb-md">
+				<div class="col-md-8 col-md-offset-2 heading animate-box" data-animate-effect="fadeIn">
+					<h1>Our Team</h1>
+					<p class="sub">Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+					<p class="subtle-text animate-box" data-animate-effect="fadeIn">Our Team</p>
+				</div>
+			</div>
+			<div class="row team-item gtco-team-reverse">
+				<div class="col-md-6 col-md-push-7 animate-box" data-animate-effect="fadeInRight">
+					<div class="img-shadow">
+						<img src="{%  static 'images/img_team_1.jpg' %}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+					</div>
+				</div>
+				<div class="col-md-6  col-md-pull-6 animate-box" data-animate-effect="fadeInRight">
+					<h2>Gauri Baraskar</h2>
+					<p></p>
+				</div>
+			</div>
+
+			<div class="row team-item gtco-team">
+				<div class="col-md-6 col-md-pull-1 animate-box"  data-animate-effect="fadeInLeft">
+					<div class="img-shadow">
+						<img src="{%  static 'images/img_team_2.jpg' %}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+					</div>
+				</div>
+				<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+					<h2>Ayush Kumar</h2>
+					<p></p>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<section id="gtco-contact" data-section="contact">
+		<div class="container">
+			<div class="row row-pb-md">
+				<div class="col-md-8 col-md-offset-2 heading animate-box" data-animate-effect="fadeIn">
+					<h1>Contact Us</h1>
+					<p class="sub">Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+					<p class="subtle-text animate-box" data-animate-effect="fadeIn">Contact</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-push-6 animate-box">
+					<form action="#">
+						<div class="form-group">
+							<label for="name" class="sr-only">Name</label>
+							<input type="text" class="form-control" placeholder="Name" id="name">
+						</div>
+						<div class="form-group">
+							<label for="email" class="sr-only">Email</label>
+							<input type="text" class="form-control" placeholder="Email" id="email">
+						</div>
+						<div class="form-group">
+							<label for="message" class="sr-only">Message</label>
+							<textarea name="message" id="message" class="form-control" cols="30" rows="7" placeholder="Message"></textarea>
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Send Message" class="btn btn-primary">
+						</div>
+					</form>
+				</div>
+				<div class="col-md-4 col-md-pull-6 animate-box">
+					<div class="gtco-contact-info">
+						<ul>
+							<li class="address">198 West 21th Street, Sanata Cruz, Mumbai</li>
+							<li class="phone"><a href="tel://1235235598"> 0712 - 2250861</a></li>
+							<li class="email"><a href="mailto:info@yoursite.com">info@huesoftwares.com</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{#	<footer id="gtco-footer" role="contentinfo">#}
+{#		<div class="container">#}
+{##}
+{#			<div class="row copyright">#}
+{#				<div class="col-md-12">#}
+{#					<p class="pull-left">#}
+{#						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>#}
+{#						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>#}
+{#					</p>#}
+{#					<p class="pull-right">#}
+{#						<ul class="gtco-social-icons pull-right">#}
+{#							<li><a href="#"><i class="icon-twitter"></i></a></li>#}
+{#							<li><a href="#"><i class="icon-facebook"></i></a></li>#}
+{#							<li><a href="#"><i class="icon-linkedin"></i></a></li>#}
+{#							<li><a href="#"><i class="icon-dribbble"></i></a></li>#}
+{#						</ul>#}
+{#					</p>#}
+{#				</div>#}
+{#			</div>#}
+{##}
+{#		</div>#}
+{#	</footer>#}
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+
+	<!-- jQuery -->
+	<script src="{%  static 'js1/jquery.min.js' %}"></script>
+	<!-- jQuery Easing -->
+	<script src="{%  static 'js1/jquery.easing.1.3.js' %}"></script>
+	<!-- Bootstrap -->
+	<script src="{%  static 'js1/bootstrap.min.js' %}"></script>
+	<!-- Waypoints -->
+	<script src="{%  static 'js1/jquery.waypoints.min.js' %}"></script>
+	<!-- Stellar -->
+	<script src="{%  static 'js1/jquery.stellar.min.js' %}"></script>
+	<!-- Magnific Popup -->
+	<script src="{%  static 'js1/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{%  static 'js1/magnific-popup-options.js' %}"></script>
+	<!-- Main -->
+	<script src="{% static 'js1/main.js' %}"></script>
+
+	</body>
+</html>
+
