@@ -53,7 +53,7 @@
 
 
             console.log(name+customerID+descript+cost);
-            $.post('leads/',{name:name,customerID:customerID,descript:descript,cost:cost},function (result) {
+            $.post('/leads/',{name:name,customerID:customerID,descript:descript,cost:cost},function (result) {
 
                 location.reload();
 
@@ -129,6 +129,8 @@
 
     <div class="col-lg-6 " id="infor">
 
+
+        {% csrf_token %}
         <h2 id="titl" class="textheader"></h2>
          <h4 id="proposer" class="textheader"></h4>
         <p id="data" style="font-family: 'Lato';"></p>
