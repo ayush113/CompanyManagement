@@ -140,7 +140,7 @@ function closeNav() {
          {#  {{ user.first_name }} {{ user.last_name }}   #}
         {% if request.user.is_authenticated %}
          <div class="basics">
-                <li class="dropdown">
+                <ul class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white">{{ user.first_name }} {{ user.last_name }}
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -149,7 +149,7 @@ function closeNav() {
           <li class="smh"><a href="{% url 'accounts:change_email' %}">{% trans 'Change email' %}</a></li>
             <li class="smh"><a href="{% url 'accounts:log_out' %}">{% trans 'Log out' %}</a></li>
         </ul>
-      </li>
+      </ul>
                 </div>
          {% endif %}
 

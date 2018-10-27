@@ -96,6 +96,11 @@
     -ms-transform: rotate(-1deg);
     transform: rotate(-1deg);
 }
+
+
+    .tex{
+        font-family: 'Lato';
+    }
             #reminder{
                 border-radius: 8px;
             }
@@ -168,7 +173,7 @@
           {% for i in result %}
               {% if i.priority %}
 
-            <aside class="note-wrap note-green" id="{{ i.index }}" onclick="reveal({{ i.index }});">
+            <aside class="note-wrap note-green tex" id="{{ i.index }}" onclick="reveal({{ i.index }});">
                 <div id="rem{{ i.index }}"  class="hides"><button  class="float-right btn btn-default btn-sm hov"  title="Delete the Reminder" onclick="deletes({{ i.index }});"><i class="fa fa-trash"></i></button><br/></div>
               {{ i.description }}<br/>
 
@@ -176,7 +181,7 @@
 
 
             {% else %}
-               <aside class="note-wrap note-blue" id="{{ i.index }}" onclick="reveal({{ i.index }});">
+               <aside class="note-wrap note-blue tex" id="{{ i.index }}" onclick="reveal({{ i.index }});">
                     <div id="rem{{ i.index }}"  class="hides"><button  class="float-right btn-default btn btn-sm hov"  title="Delete the Reminder" onclick="deletes({{ i.index }});"><i class="fa fa-trash"></i></button><br/></div>
                    {{ i.description }}<br/>
 

@@ -8,6 +8,6 @@ from projects.utils import namedtuplefetchall
 @login_required
 def leads(request):
     with connection.cursor() as curr:
-        curr.execute("select customer_name,proposed_project_info,time_required,cost from customer,leads where point_of_contact=%s and leads.customer_id=customer.customer_id",[request.user.id])
+        curr.execute("select customer_name,proposed_project_info,time_required,cost,leads.info from customer,leads where point_of_contact=%s and leads.customer_id=customer.customer_id",[request.user.id])
         res = namedtuplefetchall(curr)
     return render(request,'leads/index.html',{'leads':res})

@@ -8,41 +8,93 @@
 <head>
     <meta charset="UTF-8">
     <title>Leads</title>
+
+     <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script>
+
+
+
+         $(document).ready(function () {
+
+              $("#infor").hide()
+         });
+        
+        function fetchDetails(info) {
+
+            $("#infor").toggle();
+            document.getElementById("data").innerHTML = info
+            
+        };
+    </script>
+
+    <style>
+
+        .pads{
+            padding: 10px;
+        }
+        .theme{
+            background-color: lawngreen;
+            border-radius: 12px;
+        }
+    </style>
 </head>
+
+
 <body>
-    <h3>Leads To Be Handled</h3><br/>
-    <table class="border">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>My Leads</h3><br/>
+    <table class="border pads">
         <tr class="border">
-            <th class="border">
+            <th class="border pads">
                 Customer Name
             </th>
-            <th>
+            <th class="border pads">
                 Proposed Project Info
             </th>
-            <th>
+            <th class="border pads">
                 Time Required
             </th>
-            <th>
+            <th class="border pads">
                 Cost Proposed
+            </th>
+            <th class="border pads">
+                Actions
             </th>
         </tr>
         {% for i in leads %}
-            <tr class="border">
-                <td class="border">
+            <tr class="border pads ">
+                <td class="border pads">
                     {{ i.customer_name }}
                 </td>
-                <td class="border">
+                <td class="border pads">
                     {{ i.proposed_project_info }}
                 </td>
-                <td class="border">
+                <td class="border pads ">
                     {{ i.time_required }}
                 </td>
-                <td class="border">
+                <td class="border pads">
                     {{ i.cost }}
                 </td>
+
+                <td class="border pads"><button class="btn btn-default theme" onclick="fetchDetails('{{ i.info }}');">Get Details</button></td>
+
             </tr>
         {% endfor %}
     </table>
+        </div>
+
+    <div class="col-lg-6 " id="infor">
+
+
+        <p id="data"> SJBDASHD</p>
+
+    </div>
+
+    </div>
 </body>
 </html>
 
