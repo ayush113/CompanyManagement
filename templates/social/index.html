@@ -133,6 +133,26 @@ input[type=submit]:hover {
 
 
         }
+        
+        function sendEmail() {
+
+            var head = document.getElementById("head").innerText
+            var subh = document.getElementById("subh").innerText
+            var cont = document.getElementById("cont").innerText
+            var projid = $("#addUser").val()
+            projid = JSON.stringify(projid)
+            head = JSON.stringify(head)
+            subh = JSON.stringify(subh)
+            cont = JSON.stringify(cont)
+
+            $.post('/social/',{projid:projid,head:head,subh:subh,cont:cont},function (result) {
+
+                location.reload()
+                
+            })
+
+            
+        }
     </script>
 </head>
 <body>
@@ -148,9 +168,10 @@ input[type=submit]:hover {
         <label for="subject">Project</label>
       </div>
       <div class="col-75">
+      {% csrf_token %}
         <select id="addUser" class="content">
             {% for r in social %}
-                <option value="{{ r.project_name }}">{{ r.project_name }}</option>
+                <option value="{{ r.project_id }}">{{ r.project_name }}</option>
             {% endfor %}
  </select>&nbsp; &nbsp;
       </div>
@@ -196,7 +217,7 @@ input[type=submit]:hover {
 
 
 <div class="col-lg-6">
-
+    {% csrf_token %}
     <h3 class="pads">Preview of the message</h3>
 
     <h2 id="head" class="pads"></h2>
@@ -204,7 +225,7 @@ input[type=submit]:hover {
 
     <p id="cont" class ="pads"> </p>
 
-    <button id="send" class="btn btn-default theme pads">Send Email</button>
+    <button id="send" class="btn btn-default theme pads" onclick="sendEmail()">Send Email</button>
 </div>
 
 
