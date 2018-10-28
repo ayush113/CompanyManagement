@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'DBMS',
         'USER': 'root',
-        'PASSWORD': '@yu$h113'
+        'PASSWORD': 'chibbu'
     }
 }
 
@@ -161,7 +161,7 @@ STATICFILES_DIRS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_HOST_USER = 'ayush.work113@gmail.com'
+EMAIL_HOST_USER = 'gauribaraskar812@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_FILE_PATH = os.path.join(CONTENT_DIR, 'tmp/emails')
 EMAIL_HOST = 'smtp.gmail.com'

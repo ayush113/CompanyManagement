@@ -34,7 +34,7 @@ def social(request):
         print("SENDING")
         #send_mail(head,content,"SOme Name For something","gauribaraskar812@gmail.com")
 
-        send_mail(head,content,sendEmail,['gauribaraskar812@gmail.com'],fail_silently=False)
+        send_mail(head,content,sendEmail,['ayush.work113@gmail.com'],fail_silently=False)
 
         print("SENT")
         return JsonResponse(1,safe=False)

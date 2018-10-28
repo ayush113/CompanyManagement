@@ -8,6 +8,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Customer Support</title>
+
+    <style>
+        .theme{
+            background-color: lawngreen;
+            border-radius: 12px;
+             padding-right: 10px;
+        }
+
+        .pads{
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+        }
+
+        .pads1{
+
+            padding-left: 10px;
+
+        }
+
+
+        table,th,tr{
+             padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+
+
+        }
+    </style>
+
+    <script>
+
+
+         function getComplaints() {
+
+
+
+         }
+
+         function getBills() {
+
+         }
+
+         function getComplaints() {
+
+         }
+
+    </script>
 </head>
 <body>
     <h3>Customer Information</h3><br/>
@@ -15,34 +65,34 @@
         <th class="border">
             Customer Name
         </th>
-        <th class="border">
-            Complaints
-        </th>
-        <th>
-            Bills
-        </th>
-        <th>
-            Changes
-        </th>
         <th>
             Contact
         </th>
+        <th class="border" id="detail">
+            Further Actions
+        </th>
+
      {% for i in customer %}
         <tr class="border">
-            <td class="border">
+            <td class="border pads">
                 {{ i.customer_name }}
             </td>
-            <td class="border">
-                {{ i.complaints }}
-            </td>
-            <td class="border">
-                {{ i.bills }}
-            </td>
-            <td class="border">
-                {{ i.changes }}
-            </td>
-            <td class="border">
+            <td class="border pads" >
                 {{ i.contact }}
+            </td>
+
+            <td class="border pads" id="detail">
+                <div class="row pads">
+                     <button class="btn btn-default theme pads1" onclick="getComplaints()" >
+            Complaints
+        </button>
+                     <button class="btn btn-default theme pads1" onclick="getBills()"  >
+            Bills
+        </button>
+                     <button class="btn btn-default theme pads1" onclick="getChanges()" >
+            Changes
+                     </button>
+                </div>
             </td>
         </tr>
 
