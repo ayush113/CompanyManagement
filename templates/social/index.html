@@ -4,13 +4,170 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Social</title>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 20px;
+    float: left;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+
+.pads{
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.pads{
+    padding-left: 15px;
+
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.theme{
+    background-color: lawngreen;
+    border-radius: 12px;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+
+    .content{
+        width: 100%;
+    }
+</style>
+
+
+    <script>
+
+        function displayManager(num) {
+
+
+            num = json.stringify(num);
+
+
+
+
+
+        }
+    </script>
 </head>
 <body>
 
+<div class="row">
+
+<div class="col-lg-6">
+<h3 class="pads1"> Select project</h3>
+
+ <select id="addUser" class="content">
+            {% for r in social %}
+                <option value="{{ r.project_name }}">{{ r.project_name }}</option>
+            {% endfor %}
+ </select>&nbsp; &nbsp;
+
+<h3 class="pads">Create a post</h3>
+
+<div class="container">
+  <form action="/action_page.php">
+    <div class="row">
+      <div class="col-25">
+        <label for="heading">Heading</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="heading" name="heading" placeholder="Title of your post">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subheading">Sunheading</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="subheading" name="subheading" placeholder="Subheading of your post">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Subject</label>
+      </div>
+      <div class="col-75">
+        <textarea id="subject" name="subject" placeholder="Write something" style="height:200px"></textarea>
+      </div>
+    </div>
+    <div class="row">
+       <button id="send" class="btn btn-default theme">Send</button>
+    </div>
+  </form>
+</div>
+</div>
+
+<div class="col-lg-6">
+
+    <h4 class="pads">Preview of the message</h4>
+
+    <h3 id="head" class="pads"></h3>
+
+</div>
+
+
+</div>
 </body>
 </html>
 
