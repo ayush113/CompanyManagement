@@ -9,13 +9,17 @@ from django.http import JsonResponse
 from django.contrib import messages
 import json
 
+
+
 @login_required
 def projects(request):
     with connection.cursor() as curr:
         curr.execute("select first_name,last_name,q1.project_id,project_name,leader,customer_id,start_date,deadline from auth_user,(SELECT project.project_id,project_name,leader,customer_id,start_date,deadline FROM project INNER JOIN works_on ON project.project_id=works_on.project_id WHERE works_on.user_id=%s) as q1 where q1.leader = auth_user.id",[request.user.id])
         res = namedtuplefetchall(curr)
 
-    return render(request,'projects/index.html',{'projects':res})
+    number = len(res)
+
+    return render(request,'projects/index.html',{'projects':res,'number':number})
 
 @login_required
 @csrf_exempt
@@ -56,6 +60,11 @@ def editpage(request):
                 if action == "send":
                     note = data.get('note')
                     note = json.loads(note)
+
+                    if(note == ''):
+                        messages.warning(request,message="Can not send empty note")
+                        return JsonResponse(1,safe=False )
+
                     id = data.get('id')
                     id = json.loads(id)
                     name = request.user.first_name + " " + request.user.last_name

@@ -189,12 +189,21 @@
             </aside>
                       {% else %}
 
+                      {% if i.priority == 2 %}
+
                       <aside class="note-wrap note-yellow tex" id="{{ i.index }}" onclick="reveal({{ i.index }});">
                     <div id="rem{{ i.index }}"  class="hides"><button  class="float-right btn-default btn btn-sm hov"  title="Delete the Reminder" onclick="deletes({{ i.index }});"><i class="fa fa-trash"></i></button><br/></div>
                    {{ i.description }}<br/><br/> From: {{ i.frm }}<br/>
 
             </aside>
+                          {% else %}
+                          <aside class="note-wrap note-yellow tex" id="{{ i.index }}" onclick="reveal({{ i.index }});">
+                    <div id="rem{{ i.index }}"  class="hides"><button  class="float-right btn-default btn btn-sm hov"  title="Delete the Reminder" onclick="deletes({{ i.index }});"><i class="fa fa-trash"></i></button><br/></div>
+                   {{ i.description }}<br/><br/>
 
+            </aside>
+
+                    {% endif %}
                       {% endif %}
               {% endif %}
 
