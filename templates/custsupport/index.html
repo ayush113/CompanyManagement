@@ -1,104 +1,138 @@
-{% extends 'accounts/layout/page.html' %}
+    {% extends 'accounts/layout/page.html' %}
 
-{% load i18n %}
+    {% load i18n %}
 
-{% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer Support</title>
+    {% block content %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Customer Support</title>
 
-    <style>
-        .theme{
-            background-color: lawngreen;
-            border-radius: 12px;
-             padding-right: 10px;
-        }
+        <style>
+            .theme{
+                background-color: lawngreen;
+                border-radius: 12px;
+                 padding-right: 10px;
+                margin-left: 10px;
+            }
 
-        .pads{
-            padding-top: 10px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-bottom: 10px;
-        }
+            .pads{
+                padding-top: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+            }
 
-        .pads1{
+            .pads1{
 
-            padding-left: 10px;
+                padding-left: 10px;
 
-        }
-
-
-        table,th,tr{
-             padding-top: 10px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-bottom: 10px;
+            }
 
 
-        }
-    </style>
-
-    <script>
-
-
-         function getComplaints() {
+            table,th,tr{
+                 padding-top: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
 
 
+            }
+        </style>
 
-         }
+        <script>
 
-         function getBills() {
 
-         }
+             function getBills(identity) {
 
-         function getComplaints() {
+                 var printtag = 2
+                 window.location.href = "{% url 'customer' %}?printtag="+printtag+"&custid="+identity
 
-         }
+             }
 
-    </script>
-</head>
-<body>
-    <h3>Customer Information</h3><br/>
-    <table class="border">
-        <th class="border">
-            Customer Name
-        </th>
-        <th>
-            Contact
-        </th>
-        <th class="border" id="detail">
-            Further Actions
-        </th>
+             function getComplaints(identity) {
 
-     {% for i in customer %}
-        <tr class="border">
-            <td class="border pads">
-                {{ i.customer_name }}
-            </td>
-            <td class="border pads" >
-                {{ i.contact }}
-            </td>
+                 var printtag = 1
+                 window.location.href = "{% url 'customer' %}?printtag="+printtag+"&custid="+identity
 
-            <td class="border pads" id="detail">
-                <div class="row pads">
-                     <button class="btn btn-default theme pads1" onclick="getComplaints()" >
-            Complaints
-        </button>
-                     <button class="btn btn-default theme pads1" onclick="getBills()"  >
-            Bills
-        </button>
-                     <button class="btn btn-default theme pads1" onclick="getChanges()" >
-            Changes
-                     </button>
-                </div>
-            </td>
-        </tr>
+             }
 
-     {% endfor %}
-    </table>
-</body>
-</html>
+             function getChanges(identity) {
 
-{% endblock %}
+                 var printtag = 3
+                 window.location.href = "{% url 'customer' %}?printtag="+printtag+"&custid="+identity
+
+             }
+
+        </script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Customer Information</h3><br/>
+        <table class="border">
+            <th class="border">
+                Customer Name
+            </th>
+            <th>
+                Contact
+            </th>
+            <th class="border" id="detail">
+                Further Actions
+            </th>
+
+        {% csrf_token %}
+         {% for i in customer %}
+            <tr class="border">
+                <td class="border pads">
+                    {{ i.customer_name }}
+                </td>
+                <td class="border pads" >
+                    {{ i.contact }}
+                </td>
+
+                <td class="border pads" id="detail">
+                    <div class="row pads">
+                         <button class="btn btn-default theme pads1" onclick="getComplaints({{ i.customer_id }})" >
+                Complaints
+            </button>
+                         <button class="btn btn-default theme pads1" onclick="getBills({{ i.customer_id }})"  >
+                Bills
+            </button>
+                         <button class="btn btn-default theme pads1" onclick="getChanges({{ i.customer_id }})" >
+                Changes
+                         </button>
+                    </div>
+                </td>
+            </tr>
+
+         {% endfor %}
+        </table>
+            </div>
+        <div class="col-lg-6">
+            {% if printtag == '1' %}
+                <h3>Customer Complaints</h3><br/>
+                    {% for data in data %}
+                        {{ data.complaints }}
+                    {% endfor %}
+            {% else %}
+                {% if printtag == '2' %}
+                    <h3>Customer Bills</h3><br/>
+                    <br/>
+                    
+                {% else %}
+                        {% if printtag == '3' %}
+                            <h3>Customer Changs</h3>
+                            {{ data }}
+                        {% endif %}
+                 {% endif %}
+            {% endif %}
+
+        </div>
+
+        </div>
+    </body>
+    </html>
+
+    {% endblock %}
