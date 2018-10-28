@@ -57,7 +57,7 @@ input[type=submit]:hover {
     padding-top: 15px;
 }
 
-.pads{
+.pads1{
     padding-left: 15px;
 
 }
@@ -78,6 +78,7 @@ input[type=submit]:hover {
 .theme{
     background-color: lawngreen;
     border-radius: 12px;
+    float: left;
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
@@ -94,16 +95,41 @@ input[type=submit]:hover {
     }
 </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
     <script>
 
-        function displayManager(num) {
-
-
-            num = json.stringify(num);
 
 
 
+        $(document).ready(function(){
+
+
+            $("#send").hide();
+        });
+
+
+        function showPreview(){
+
+
+            $("#send").show();
+
+
+            var hea = $("#heading").val();
+            console.log(hea)
+            document.getElementById("head").innerHTML = hea;
+
+
+            var subhea = $("#subheading").val();
+            document.getElementById("subh").innerHTML = subhea;
+
+
+            var conte = $("#subject").val();
+            document.getElementById("cont").innerHTML = conte;
+
+            if(hea == '' && subhea== '' && conte == '')
+                $("#send").hide();
 
 
         }
@@ -114,20 +140,25 @@ input[type=submit]:hover {
 <div class="row">
 
 <div class="col-lg-6">
-<h3 class="pads1"> Select project</h3>
 
- <select id="addUser" class="content">
+<h3 class="pads">Create a post</h3>
+
+<div class="row">
+      <div class="col-25 pads">
+        <label for="subject">Project</label>
+      </div>
+      <div class="col-75">
+        <select id="addUser" class="content">
             {% for r in social %}
                 <option value="{{ r.project_name }}">{{ r.project_name }}</option>
             {% endfor %}
  </select>&nbsp; &nbsp;
+      </div>
+    </div>
 
-<h3 class="pads">Create a post</h3>
 
-<div class="container">
-  <form action="/action_page.php">
     <div class="row">
-      <div class="col-25">
+      <div class="col-25 pads">
         <label for="heading">Heading</label>
       </div>
       <div class="col-75">
@@ -135,7 +166,7 @@ input[type=submit]:hover {
       </div>
     </div>
     <div class="row">
-      <div class="col-25">
+      <div class="col-25 pads">
         <label for="subheading">Sunheading</label>
       </div>
       <div class="col-75">
@@ -144,26 +175,36 @@ input[type=submit]:hover {
     </div>
 
     <div class="row">
-      <div class="col-25">
+      <div class="col-25 pads">
         <label for="subject">Subject</label>
       </div>
       <div class="col-75">
         <textarea id="subject" name="subject" placeholder="Write something" style="height:200px"></textarea>
       </div>
     </div>
-    <div class="row">
-       <button id="send" class="btn btn-default theme">Send</button>
+    <div class="row  pads">
+       <button id="prev" class="btn btn-default theme" onclick="showPreview();">Preview</button>
     </div>
-  </form>
+
+
+
+
+
 </div>
-</div>
+
+
+
 
 <div class="col-lg-6">
 
-    <h4 class="pads">Preview of the message</h4>
+    <h3 class="pads">Preview of the message</h3>
 
-    <h3 id="head" class="pads"></h3>
+    <h2 id="head" class="pads"></h2>
+    <h4 id="subh" class="pads"></h4>
 
+    <p id="cont" class ="pads"> </p>
+
+    <button id="send" class="btn btn-default theme pads">Send Email</button>
 </div>
 
 
