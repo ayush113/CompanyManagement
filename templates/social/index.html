@@ -107,6 +107,7 @@ input[type=submit]:hover {
 
 
             $("#send").hide();
+
         });
 
 
@@ -144,8 +145,9 @@ input[type=submit]:hover {
             head = JSON.stringify(head)
             subh = JSON.stringify(subh)
             cont = JSON.stringify(cont)
-
-            $.post('/social/',{projid:projid,head:head,subh:subh,cont:cont},function (result) {
+            var pass = $("#passd").val()
+            pass = JSON.stringify(pass)
+            $.post('/social/',{projid:projid,head:head,subh:subh,cont:cont,pass:pass},function (result) {
 
                 location.reload()
                 
@@ -225,11 +227,31 @@ input[type=submit]:hover {
 
     <p id="cont" class ="pads"> </p>
 
-    <button id="send" class="btn btn-default theme pads" onclick="sendEmail()">Send Email</button>
+    <button id="send" class="btn btn-default theme pads" data-toggle="modal" data-target="#myModal">Send Email</button>
 </div>
 
 
 </div>
+
+  <!-- Trigger the modal with a button -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Enter Password</h5>
+        </div>
+        <div class="modal-body">
+          <input type="password" id="passd"><br/><br/>
+            <button type="button" class="btn btn-default theme" data-dismiss="modal" onclick="sendEmail()">Submit</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </body>
 </html>
 

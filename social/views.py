@@ -10,9 +10,11 @@ from django.contrib import messages
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-from .utils import sendEmail,sendPwd
+from .utils import send_mail
 
-from django.core.mail import send_mail
+from DBMS import settings
+
+from passlib.hash import pbkdf2_sha256 as encrypto
 
 # Create your views here.
 
@@ -26,17 +28,27 @@ def social(request):
         head = json.loads(head)
         subhead = json.loads(data.get('subh'))
         content = json.loads(data.get('cont'))
+        obtained = json.loads(data.get('pass'))
         with connection.cursor() as curr:
             curr.execute("SELECT manager_id,customer_id FROM socialMedia where project_id=%s",[project_id])
             rec_id =  namedtuplefetchall(curr)
         manager_id = rec_id[0].manager_id
         customer_id = rec_id[0].customer_id
         print("SENDING")
-        #send_mail(head,content,"SOme Name For something","gauribaraskar812@gmail.com")
 
-        send_mail(head,content,sendEmail,['ayush.work113@gmail.com'],fail_silently=False)
+        with connection.cursor() as curr:
+            curr.execute("select contact from customer where customer_id = %s",[customer_id])
+            email = namedtuplefetchall(curr)
+        customer_email = email[0].contact
 
-        print("SENT")
+        # Rename the email field with customer_email to send to customers when we have actual data
+
+        pwd = settings.EMAIL_HOST_PASSWORD
+        if encrypto.verify(obtained,pwd) == True:
+            #print("asjdhasd")
+            send_mail(head,subhead+'\n'+content,'Gauri Baraskar','gauribaraskar812@gmail.com',settings.EMAIL_HOST_USER,obtained)
+        else:
+            messages.warning(request,"Wrong Password Entered")
         return JsonResponse(1,safe=False)
 
     else:

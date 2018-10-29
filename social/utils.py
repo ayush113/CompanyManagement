@@ -6,8 +6,7 @@ from email.mime.text import MIMEText
 import smtplib
 
 
-sendEmail = "ayush.work113@gmail.com"
-sendPwd = "@yu$hkum@r123"
+
 
 def namedtuplefetchall(cursor):
     "Return all rows from a cursor as a namedtuple"
@@ -15,7 +14,7 @@ def namedtuplefetchall(cursor):
     nt_result = namedtuple('Result', [col[0] for col in desc])
     return [nt_result(*row) for row in cursor.fetchall()]
 
-def send_mail(subject, message, rec_name, rec_email):
+def send_mail(subject, message, rec_name, rec_email,sendEmail,sendPwd):
 
     msg = MIMEMultipart()
     print("stage 1")
