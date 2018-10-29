@@ -47,3 +47,5 @@ def send_mail(subject, message, rec_name, rec_email):
         return True  # YAY! MAIL IS SENT!
     except smtplib.SMTPException:
         return False  # NOOO! MAIL IS NOT SENT!
+
+

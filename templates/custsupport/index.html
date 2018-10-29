@@ -65,6 +65,19 @@
 
              }
 
+             function resolve(identity) {
+                var comp = document.getElementById("comp").innerText
+                comp = JSON.stringify(comp)
+                 var act = "resolve"
+                 act = JSON.stringify(act)
+                 var custid = JSON.stringify(identity)
+                $.post('/customer/',{act:act,comp:comp,custid:custid},function (result) {
+
+                    location.reload()
+
+                })
+             }
+
         </script>
     </head>
     <body>
@@ -114,17 +127,40 @@
             {% if printtag == '1' %}
                 <h3>Customer Complaints</h3><br/>
                     {% for data in data %}
-                        {{ data.complaints }}
+                        {% if data.complaints %}
+                            <p id="comp">{{ data.complaints }}</p>  <button class="theme" onclick="resolve({{ data.customer_id }})">Resolve</button>
+                        {% endif %}
                     {% endfor %}
             {% else %}
                 {% if printtag == '2' %}
                     <h3>Customer Bills</h3><br/>
-                    <br/>
-                    
+                    {% for data in data %}
+                         <div class="card" style="width:400px;background-color: #b9dcf4">
+                            <div class="card-body">
+                                <h4 class="card-title">Bill For {{ data.name }}</h4>
+                                <p class="card-text">Amount: {{ data.amount }}<br/>Breakdown:<br/>
+
+                                    {% for data in data.breakdown %}
+
+                                        {{ data }}&nbsp;&nbsp;
+
+                                    {% endfor %}
+
+                                </p>
+
+                            </div>
+
+                         </div>
+
+                        <br/>
+
+                    {% endfor %}
+
+
                 {% else %}
                         {% if printtag == '3' %}
-                            <h3>Customer Changs</h3>
-                            {{ data }}
+                            <h3>Customer Changes</h3>
+                            {{ data.changes }}
                         {% endif %}
                  {% endif %}
             {% endif %}
