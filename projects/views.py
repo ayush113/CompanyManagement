@@ -112,7 +112,7 @@ def editpage(request):
             roles = namedtuplefetchall(curr)
 
         with connection.cursor() as curr:
-            curr.execute("select first_name,last_name,id from auth_user where id in (select distinct user_id from works_on where user_id not in (select user_id from works_on where project_id=%s))",[request.GET.get('project_id')])
+            curr.execute("select first_name,last_name,id from auth_user where id not in (select distinct user_id from works_on where project_id=%s)",[request.GET.get('project_id')])
             addUser = namedtuplefetchall(curr)
 
         try:
