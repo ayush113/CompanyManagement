@@ -53,8 +53,7 @@ def social(request):
 
     else:
         with connection.cursor() as curr:
-            curr.execute(
-                "select project.project_id,project_name from works_on,project where user_id=%s and project.project_id=works_on.project_id",[request.user.id])
+            curr.execute("select project.project_id,project_name from works_on,project where user_id=%s and project.project_id=works_on.project_id",[request.user.id])
             res = namedtuplefetchall(curr)
         return render(request, 'social/index.html', {'social': res})
 
